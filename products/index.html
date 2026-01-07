@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection | Craftsman Artifacts</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        /* --- PAGE SPECIFIC STYLES (Headers & Modals) --- */
+        
+        /* 1. HEADER SECTION */
+        .header-section {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 60px 0; 
+            margin-bottom: 40px;
+        }
+
+        .collection-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr; 
+            gap: 40px;
+            align-items: center; 
+        }
+
+        .header-title h1 {
+            font-size: 3rem; 
+            margin: 0;
+            line-height: 1;
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+        }
+
+        .header-desc p {
+            font-size: 1rem;
+            color: #ccc;
+            margin: 0;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* 2. FILTERS */
+        .filter-bar {
+            padding: 20px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e0e0e0; 
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            padding: 10px 25px;
+            color: #888;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .filter-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            left: 50%;
+            background: var(--gold);
+            transition: 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .filter-btn:hover { color: #000; }
+        .filter-btn.active { color: #000; font-weight: bold; }
+        .filter-btn.active::after { width: 40px; } 
+
+        /* 3. PRODUCT GRID LAYOUT */
+        /* (The styling of the cards is now handled in style.css, we just keep layout here) */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+            gap: 30px; 
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        
+        .product-item.hide { display: none; }
+
+        /* 4. MOBILE */
+        @media (max-width: 768px) {
+            .collection-header { grid-template-columns: 1fr; gap: 20px; text-align: center; }
+            .header-title h1 { font-size: 2.5rem; }
+            .header-section { padding: 40px 0; }
+        }
+
+        /* 5. MODAL */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.85); }
+        .modal-content { background-color: #fff; margin: 5% auto; padding: 0; border: none; width: 90%; max-width: 900px; display: flex; border-radius: 0; position: relative; overflow: hidden; }
+        .modal-img { width: 50%; height: 600px; object-fit: contain; background: #faf9f6; }
+        .modal-details { width: 50%; padding: 60px; display: flex; flex-direction: column; justify-content: center;}
+        .close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: #000; cursor: pointer; z-index: 10; }
+        @media (max-width: 768px) {
+            .modal-content { flex-direction: column; margin: 0; width: 100%; height: 100%; border-radius: 0; }
+            .modal-img { width: 100%; height: 40vh; }
+            .modal-details { width: 100%; height: 60vh; padding: 30px; overflow-y: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="../" class="logo">Craftsman Artifacts</a>
+            <div class="nav-links">
+                <a href="../">Home</a>
+                <a href="./" class="active">Collection</a>
+                <a href="../gallery/">Gallery</a>
+                <a href="../contact/">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="header-section">
+        <div class="collection-header">
+            <div class="header-title">
+                <h1>Our<br>Collection</h1>
+            </div>
+            <div class="header-desc">
+                <p>
+                    Welcome to our collection. We hand-pick each item not just for how it looks, but for the good energy it brings. 
+                    <br><br>
+                    Whether you are looking for a centerpiece for your altar or a small token of luck for your desk, 
+                    we hope you find something here that makes your space feel a little more peaceful.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterSelection('all')">View All</button>
+        <button class="filter-btn" onclick="filterSelection('statues')">Statues</button>
+        <button class="filter-btn" onclick="filterSelection('others')">Others</button>
+    </div>
+
+    <div class="product-grid" id="grid-container"></div>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImg" class="modal-img" src="" alt="">
+            <div class="modal-details">
+                <h2 id="modalTitle" style="font-family:'Playfair Display'; font-size: 2rem; margin-top:0;">Title</h2>
+                <p id="modalPrice" style="color:var(--gold); font-size: 1.5rem; margin: 10px 0 30px 0;">$0.00</p>
+                
+                <div style="font-size: 0.95rem; color: #555; line-height: 1.8;">
+                    <p style="margin-bottom: 5px;"><strong>Dimensions:</strong> <span id="modalSize"></span></p>
+                    <p style="margin-bottom: 20px;"><strong>Material:</strong> <span id="modalMaterial"></span></p>
+                    <p id="modalDesc"></p>
+                </div>
+
+                <a id="modalBuyBtn" href="#" class="btn" target="_blank" style="margin-top: 40px; text-align:center;">Inquire to Purchase</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Craftsman Artifacts Singapore</p>
+    </footer>
+
+    <script>
+        // 1. FETCH JSON DATA
+        fetch('data/products.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('grid-container');
+                
+                data.forEach(product => {
+                    const categoryClass = product.category ? product.category.toLowerCase() : 'other';
+                    const imagePath = `../${product.image}`;
+
+                    const productHTML = `
+                        <div class="card product-item ${categoryClass}" 
+                             onclick="openModal(this)" 
+                             data-title="${product.title}" 
+                             data-size="${product.size}"
+                             data-material="${product.material}"
+                             data-price="${product.price}" 
+                             data-img="${imagePath}" 
+                             data-desc="${product.desc}">
+                            <img src="${imagePath}" alt="${product.title}">
+                            <div class="card-info">
+                                <span class="card-title">${product.title}</span>
+                                <span class="price">${product.price}</span>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += productHTML;
+                });
+            })
+            .catch(error => console.error('Error loading JSON:', error));
+
+        // 2. FILTER LOGIC
+        function filterSelection(category) {
+            const items = document.getElementsByClassName("product-item");
+            const btns = document.getElementsByClassName("filter-btn");
+            
+            for (let btn of btns) {
+                btn.classList.remove("active");
+                if (btn.innerText.toLowerCase().includes(category) || (category === 'all' && btn.innerText === 'View All')) {
+                    btn.classList.add("active");
+                }
+            }
+            
+            for (let i = 0; i < items.length; i++) {
+                if (category === "all") items[i].classList.remove("hide");
+                else {
+                    if (items[i].classList.contains(category)) items[i].classList.remove("hide");
+                    else items[i].classList.add("hide");
+                }
+            }
+        }
+
+        // 3. MODAL LOGIC
+        const modal = document.getElementById("productModal");
+        const body = document.body;
+
+        function openModal(element) {
+            document.getElementById("modalTitle").innerText = element.getAttribute("data-title");
+            document.getElementById("modalSize").innerText = element.getAttribute("data-size");
+            document.getElementById("modalMaterial").innerText = element.getAttribute("data-material");
+            document.getElementById("modalPrice").innerText = element.getAttribute("data-price");
+            document.getElementById("modalDesc").innerText = element.getAttribute("data-desc");
+            document.getElementById("modalImg").src = element.getAttribute("data-img");
+            
+            const waMsg = `Hi Craftsman Artifacts, I am interested in the ${element.getAttribute("data-title")}.`;
+            document.getElementById("modalBuyBtn").href = `https://wa.me/6591234567?text=${encodeURIComponent(waMsg)}`;
+
+            modal.style.display = "block";
+            body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                body.style.overflow = "auto";
+            }
+        }
+    </script>
+</body>
+</html>

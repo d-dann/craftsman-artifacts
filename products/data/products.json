@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "title": "Guan Yin",
+        "category": "statues",
+        "price": "PM for price",
+        "size": "30cm (Height) x 15cm (Width)",
+        "material": "Solid Bronze with Antique Finish",
+        "image": "../images/prods/buddha/guanyin.jpeg",
+        "desc": "This statue has been consecrated to bring peace and compassion to your household. It acts as a stabilizer for the home's energy field."
+    },
+    {
+        "id": 2,
+        "title": "Golden Wu Lou",
+        "category": "others",
+        "price": "$48.00",
+        "size": "15cm (Height)",
+        "material": "Polished Brass",
+        "image": "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?w=600",
+        "desc": "The ultimate symbol of health and longevity. The lid can be opened to place written wishes or protective mantras inside."
+    },
+    {
+        "id": 3,
+        "title": "Wealth Ingot",
+        "category": "others",
+        "price": "$88.00",
+        "size": "10cm x 8cm",
+        "material": "Natural Yellow Jade",
+        "image": "https://images.unsplash.com/photo-1621262799349-2b87648356d2?w=600",
+        "desc": "A heavy ingot (Yuan Bao) symbolizing the accumulation of wealth. Best placed in the Southeast corner (Wealth Sector)."
+    }
+]

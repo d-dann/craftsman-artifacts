@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Craftsmen Artifacts</title>
+    <link rel="stylesheet" href="../style.css">
+    
+    <style>
+        /* --- PAGE LAYOUT STYLES --- */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* The container for the Split View */
+        .contact-wrapper {
+            display: flex;
+            flex: 1; /* Fills remaining height below navbar */
+            width: 100%;
+            height: auto;
+            min-height: 80vh; /* Ensures it looks good on big screens */
+        }
+
+        /* --- LEFT SIDE: IMAGE --- */
+        .contact-visual {
+            flex: 1;
+            /* Placeholder Image: High-end Bronze Texture */
+            background-image: url('https://images.unsplash.com/photo-1629904853716-f004b377c814?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 400px;
+        }
+
+        /* --- RIGHT SIDE: CONTENT --- */
+        .contact-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8% 10%; /* Responsive padding */
+            background-color: #fff;
+        }
+
+        /* --- TYPOGRAPHY & BUTTONS --- */
+        .contact-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            font-family: serif; /* Matches your luxury vibe */
+        }
+        
+        .contact-text {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn-action {
+            padding: 15px 30px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        /* Gold Solid Button */
+        .btn-gold {
+            background-color: #d4af37; /* Gold */
+            color: white;
+            border-color: #d4af37;
+        }
+        .btn-gold:hover { background-color: #b59026; }
+
+        /* Black Outline Button */
+        .btn-outline {
+            background-color: transparent;
+            color: #333;
+            border-color: #ccc;
+        }
+        .btn-outline:hover {
+            border-color: #d4af37;
+            color: #d4af37;
+        }
+
+        /* Contact Details */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+        .detail-item h4 { margin: 0 0 5px 0; font-size: 0.85rem; color: #333; }
+        .detail-item p { margin: 0; color: #888; font-size: 0.9rem; }
+
+        /* --- MODAL (POPUP) STYLES --- */
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background-color: #fff; margin: 10vh auto; padding: 40px;
+            width: 90%; max-width: 500px; position: relative; border-radius: 4px;
+        }
+        .close { float: right; font-size: 28px; cursor: pointer; }
+        .modal-form input, .modal-form textarea {
+            width: 100%; padding: 12px; margin-bottom: 15px;
+            border: 1px solid #ddd; box-sizing: border-box; font-family: inherit;
+        }
+        .modal-form button {
+            background: #1a1a1a; color: #fff; padding: 15px; width: 100%;
+            border: none; cursor: pointer; text-transform: uppercase;
+        }
+
+        /* Mobile Fix */
+        @media (max-width: 768px) {
+            .contact-wrapper { flex-direction: column; }
+            .contact-visual { height: 250px; flex: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="../" class="logo">Craftsman Artifacts</a>
+            <div class="nav-links">
+                <a href="../">Home</a>
+                <a href="../products/">Collection</a>
+                <a href="../gallery/">Gallery</a>
+                <a href="../contact/">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="contact-wrapper">
+        <div class="contact-visual"></div>
+
+        <div class="contact-info">
+            <h1 class="contact-title">Start a Conversation</h1>
+            <p class="contact-text">
+                Whether you are looking for a specific Buddha statue or require Feng Shui consultation, we are here to assist.
+            </p>
+
+            <div class="btn-group">
+                <a href="https://wa.me/6591234567" class="btn-action btn-gold">WhatsApp (+65)</a>
+                <button id="openModalBtn" class="btn-action btn-outline">Send Email</button>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-item">
+                    <h4>Direct Email</h4>
+                    <p>hello@craftsmen.sg</p>
+                </div>
+                <div class="detail-item">
+                    <h4>Availability</h4>
+                    <p>Online 24/7</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="margin-top:0; font-family: serif;">Send Inquiry</h2>
+            <form class="modal-form" id="emailForm">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea rows="4" placeholder="Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Craftsmen Artifacts Singapore</p>
+    </footer>
+
+    <script>
+        const modal = document.getElementById("contactModal");
+        const btn = document.getElementById("openModalBtn");
+        const span = document.getElementsByClassName("close")[0];
+        const form = document.getElementById("emailForm");
+
+        btn.onclick = () => modal.style.display = "block";
+        span.onclick = () => modal.style.display = "none";
+        window.onclick = (e) => { if(e.target == modal) modal.style.display = "none"; }
+        
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            alert("Message Sent!");
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>

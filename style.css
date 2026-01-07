@@ -1,0 +1,163 @@
+/* --- 1. FONTS & VARIABLES --- */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:wght@400;700&display=swap');
+
+:root {
+    --gold: #C5A059;
+    --gold-gradient: linear-gradient(135deg, #C5A059 0%, #E6C87F 100%);
+    --dark: #1a1a1a;
+    /* CHANGED: Global Background is now Warm Linen */
+    --light: #f5f4f0; 
+    --shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+body { 
+    margin: 0; 
+    font-family: 'Lato', sans-serif; 
+    background: var(--light); 
+    color: #444; 
+    line-height: 1.8; 
+    padding-top: 80px; 
+}
+
+h1, h2, h3, .logo { font-family: 'Playfair Display', serif; color: var(--dark); }
+
+/* --- 2. NAVIGATION --- */
+header { 
+    background: #fff; 
+    box-shadow: 0 2px 20px rgba(0,0,0,0.03); 
+    position: fixed; 
+    top: 0; left: 0;
+    width: 100%;
+    z-index: 1000; 
+    transition: 0.3s; 
+}
+
+nav { 
+    max-width: 1100px; 
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 15px 20px; 
+}
+
+.logo { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    color: var(--dark); 
+    text-decoration: none; 
+}
+.logo:hover { color: var(--gold); }
+
+.nav-links a { 
+    margin-left: 30px; 
+    font-weight: 400; 
+    font-size: 0.95rem; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    color: #888; 
+    text-decoration: none;
+    transition: 0.3s; 
+}
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+/* --- 3. BANNER / CAROUSEL --- */
+.carousel-container { 
+    position: relative; 
+    width: 100%; 
+    aspect-ratio: 16 / 9; 
+    height: auto;
+    max-height: 75vh;
+    overflow: hidden; 
+    background: #000; 
+}
+.slide { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    opacity: 0; transition: opacity 1.5s ease-in-out, transform 6s linear; 
+    background-position: center 30%; background-size: cover; 
+    transform: scale(1.05); 
+}
+.slide.active { opacity: 1; transform: scale(1); z-index: 2; }
+.overlay { 
+    position: absolute; top:0; left:0; width:100%; height:100%; 
+    background: rgba(0,0,0,0.3); 
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    z-index: 3;
+}
+.hero-text h2 { font-size: 1.2rem; margin: 0 0 5px 0; color: var(--gold); }
+.hero-text h1 { color: white; font-size: 2rem; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+.hero-text p { color: #eee; font-size: 1rem; margin-bottom: 20px; font-weight: 300; }
+
+/* --- 4. BUTTONS & UTILS --- */
+.btn { 
+    display: inline-block; padding: 12px 30px; 
+    background: var(--gold-gradient); color: white; 
+    border-radius: 2px; font-weight: bold; letter-spacing: 1px; 
+    text-transform: uppercase; font-size: 0.85rem; text-decoration: none;
+    box-shadow: 0 5px 15px rgba(197, 160, 89, 0.4); 
+    transition: 0.3s; 
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(197, 160, 89, 0.6); }
+
+/* --- 5. GRID & CARDS (The New Warm Look) --- */
+.product-grid, .gallery-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+    gap: 30px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding-bottom: 80px; 
+}
+
+.card, .gallery-item { 
+    /* Cards are WHITE to pop against the warm background */
+    background: #ffffff; 
+    
+    /* Dark Stone Grey Border (#b8b5b0) */
+    border: 1px solid #b8b5b0; 
+    
+    border-radius: 6px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+    transition: 0.3s ease;
+    padding: 15px; 
+}
+
+.card:hover, .gallery-item:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
+    border-color: var(--gold); 
+}
+
+.card img, .gallery-item img { 
+    width: 100%; 
+    height: 280px; 
+    object-fit: contain; 
+    background-color: #ffffff; /* Image box is also white */
+    margin-bottom: 15px;
+    padding: 15px; 
+    box-sizing: border-box;
+    border: 1px solid #f0f0f0; 
+    border-radius: 4px;
+}
+
+.card-info, .caption { padding: 10px 0 0 0; text-align: center; }
+.card-title { display: block; font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #1a1a1a; margin-bottom: 5px; font-weight: bold; }
+.price { color: var(--gold); font-weight: bold; display: block; margin-top: 5px; font-size: 1rem; }
+
+/* --- 6. FOOTER --- */
+footer { background: var(--dark); color: #666; text-align: center; padding: 50px 0; border-top: 5px solid var(--gold); font-size: 0.9rem; }
+
+/* --- MOBILE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    header { position: relative; }
+    body { padding-top: 0; }
+    nav { flex-direction: column; align-items: center; padding: 15px 10px; }
+    .logo { font-size: 1.4rem; margin-bottom: 5px; text-align: center; width: 100%; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; margin-top: 10px; }
+    .nav-links a { margin-left: 0; font-size: 0.85rem; padding: 5px; }
+    .carousel-container { height: 60vh; }
+}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Craftsman Artifacts</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* 1. Typography Specifics */
+        .cn-text { 
+            font-family: "Songti SC", "SimSun", serif; 
+            font-weight: normal; 
+            letter-spacing: 2px; 
+        }
+
+        /* 2. The White "Content Card" Layout */
+        .home-card {
+            background: #ffffff;
+            max-width: 1000px;
+            /* Negative top margin pulls the card UP over the banner */
+            margin: -60px auto 80px auto; 
+            padding: 70px 80px;
+            border-radius: 8px;
+            /* Soft shadow makes it 'float' */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06); 
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 3. Intro Section Styling */
+        .intro-section { margin-bottom: 60px; }
+        
+        .section-title {
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            max-width: 800px;
+            /* No margin: 0 auto; needed because parent handles layout */
+        }
+
+        /* 4. The 3-Column Pillars Grid */
+        .pillars-grid {
+            display: grid;
+            /* Creates 3 equal columns */
+            grid-template-columns: 1fr 1fr 1fr; 
+            gap: 50px;
+            padding-top: 60px;
+            border-top: 1px solid #f0f0f0; /* Subtle divider line */
+        }
+
+        .pillar-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+            line-height: 1.4;
+        }
+        
+        .pillar-item span.cn-text {
+            display: block;
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .pillar-item p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .home-card { margin: 0; padding: 40px 20px; border-radius: 0; }
+            .pillars-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="./" class="logo">Craftsman Artifacts</a>
+            <div class="nav-links">
+                <a href="./" class="active">Home</a>
+                <a href="products/">Collection</a>
+                <a href="gallery/">Gallery</a>
+                <a href="contact/">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="carousel-container">
+        <div class="slide active" style="background-image: url('images/Banners/altar16x9.jpeg');"></div>
+        <div class="slide" style="background-image: url('images/Banners/charcoal1.jpeg');"></div>
+        
+        <div class="overlay">
+            <div class="hero-text">
+                <h2 class="cn-text" style="color:var(--gold); margin:0; font-size: 2rem;">风生水起</h2>
+                <h1 style="margin-top:10px;">Invite Harmony & Abundance</h1>
+                <p>Spiritual Cures for Wealth, Luck, and Harmony</p>
+                <a href="products/" class="btn">View Collection</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding: 0;"> <div class="home-card">
+            
+            <div class="intro-section">
+                <h2 class="section-title">Invite Harmony & Abundance</h2>
+                <span class="cn-text section-subtitle">纳福招财</span>
+                
+                <div class="intro-text">
+                    <p style="margin-bottom: 20px;">
+                        Life flows in cycles. Sometimes, we face periods of stagnation in our career, health, or relationships. In these moments, the right spiritual anchor can help restore balance and clear the path forward.
+                    </p>
+                    <p>
+                        Curated by our Master, our artifacts are vessels of positive energy. Whether you are looking to attract <strong>Wealth (招财)</strong> or simply cleanse your home of <strong>Stagnant Energy (煞气)</strong>, each piece is blessed to bring <strong>Peace (平安)</strong> to your space.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pillars-grid">
+                
+                <div class="pillar-item">
+                    <h3>Consecrated <br><span class="cn-text">开光加持</span></h3>
+                    <p>Blessed through traditional rituals to activate the item's spiritual potential and attract prosperity.</p>
+                </div>
+
+                <div class="pillar-item">
+                    <h3>Soulful Artistry <br><span class="cn-text">匠心独运</span></h3>
+                    <p>Made wholeheartedly by skilled hands. Each piece creates a serene atmosphere, inviting a sense of calm into your space.</p>
+                </div>
+
+                <div class="pillar-item">
+                    <h3>Singapore Based <br><span class="cn-text">值得信赖</span></h3>
+                    <p>A trusted local presence. We are here to assist you with your aspirations.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Craftsman Artifacts Singapore</p>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        function showSlides() {
+            // Check if slides exist to prevent errors
+            if(slides.length > 0) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slideIndex++;
+                if (slideIndex > slides.length) { slideIndex = 1 }
+                slides[slideIndex - 1].classList.add('active');
+                setTimeout(showSlides, 5000); 
+            }
+        }
+        showSlides();
+    </script>
+</body>
+</html>
