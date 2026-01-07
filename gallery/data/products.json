@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "title": "Custom Teak Altar",
+        "category": "residential", 
+        "image": "../images/showcase/altar.jpeg", 
+        "description": "A bespoke residential project involving the consecration of a custom-carved teak altar, aligned with the family's Feng Shui readings."
+    },
+    {
+        "id": 2,
+        "title": "Bronze Guan Yin Statue",
+        "category": "shrine", 
+        "image": "https://images.unsplash.com/photo-1620313838209-e85d99723c04?w=800",
+        "description": "Installation of a 2-meter tall Bronze Guan Yin statue for a private estate shrine."
+    },
+    {
+        "id": 3,
+        "title": "Office Feng Shui Layout",
+        "category": "consultation",
+        "image": "https://images.unsplash.com/photo-1600609842388-439546743956?w=800",
+        "description": "A complete Feng Shui audit for a financial firm, resulting in the strategic placement of wealth-attracting artifacts."
+    },
+    {
+        "id": 4,
+        "title": "Rare Dynasty Vase Sourcing",
+        "category": "consultation",
+        "image": "https://images.unsplash.com/photo-1518182170546-0766ce6f1a56?w=800",
+        "description": "Specialized sourcing service for a private collector seeking authentic dynasty-era ceramics."
+    },
+    {
+        "id": 5,
+        "title": "Meditation Space Design",
+        "category": "residential",
+        "image": "https://images.unsplash.com/photo-1599707367072-cd6ad66acc40?w=800",
+        "description": "Creating a dedicated Zen meditation corner using minimal stone artifacts and flowing water features."
+    }
+]

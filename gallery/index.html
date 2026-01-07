@@ -3,109 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery | Craftsman Artifacts</title>
+    <title>Gallery | Craftsmen Artifacts</title>
     <link rel="stylesheet" href="../style.css">
     
     <style>
-        /* --- 1. DARK HEADER --- */
+        /* --- 1. HEADER (Dark & Gold) --- */
         .header-section {
-            background-color: #1a1a1a;
+            background-color: #1a1a1a; 
             color: #fff;
-            padding: 60px 0; 
-            margin-bottom: 40px;
+            padding: 60px 20px; 
+            text-align: center;
+            margin-bottom: 20px;
         }
+        .header-subtitle { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; color: #fff; margin-bottom: 10px; display: block; }
+        /* Using var(--gold) to match Products page exactly */
+        .header-title { font-size: 2.5rem; font-family: serif; color: var(--gold); margin: 0 0 15px 0; font-weight: normal; }
+        .header-desc { color: #ccc; max-width: 600px; margin: 0 auto; line-height: 1.6; font-size: 1rem; font-family: sans-serif; }
 
-        .gallery-header {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 0.8fr 1.2fr; 
-            gap: 40px;
-            align-items: center; 
-        }
+        /* --- 2. FILTERS --- */
+        .filter-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; padding: 0 20px; }
+        .filter-btn { background: none; border: none; cursor: pointer; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; padding: 10px 15px; color: #888; transition: all 0.3s ease; position: relative; }
+        .filter-btn::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 5px; left: 50%; background: var(--gold); transition: 0.3s; transform: translateX(-50%); }
+        .filter-btn:hover { color: #000; }
+        .filter-btn.active { color: #000; font-weight: bold; }
+        .filter-btn.active::after { width: 100%; }
 
-        .header-title h1 {
-            font-size: 3rem; 
-            margin: 0;
-            line-height: 1;
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-        }
-
-        .header-desc p {
-            font-size: 1rem;
-            color: #ccc;
-            margin: 0;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        /* --- 2. HORIZONTAL SCROLL CONTAINER --- */
-        .scroll-container {
-            /* This creates the horizontal scroll area */
-            display: flex;
-            overflow-x: auto;
-            gap: 30px;
-            padding: 20px 5%; /* 5% padding so start/end items aren't stuck to edge */
-            padding-bottom: 60px; /* Space for scrollbar/shadow */
-            
-            /* Smooth scrolling physics */
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; 
-            
-            /* Hide Scrollbar visually but keep functionality */
-            scrollbar-width: none; /* Firefox */
-        }
-        
-        .scroll-container::-webkit-scrollbar { 
-            display: none; /* Chrome/Safari */
-        }
-
-        /* --- 3. GALLERY CARDS --- */
-        .gallery-item {
-            /* Fixed width is crucial for horizontal scrolling */
-            flex: 0 0 350px; 
-            
-            /* Inherit White Card + Grey Border styling from style.css */
-            /* (Note: style.css rules for .gallery-item apply automatically) */
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .gallery-item img {
+        /* --- 3. 3D CAROUSEL CONTAINER --- */
+        .carousel-container {
+            position: relative;
             width: 100%;
-            height: 400px; /* Tall portrait look */
-            object-fit: cover; 
-            border-bottom: 1px solid #eee;
-            margin-bottom: 15px;
-            border-radius: 4px 4px 0 0;
-            padding: 0;
+            max-width: 1000px;
+            height: 500px; /* Fixed height for the stack area */
+            margin: 0 auto 50px;
+            perspective: 1000px; /* Creates the 3D depth */
+            overflow: hidden; /* Hides cards flying off screen */
+            padding-top: 20px;
         }
 
-        .caption {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            color: #1a1a1a;
-            text-align: center;
-            padding: 0 15px;
+        /* The Card Itself */
+        .carousel-card {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 320px; /* Card Width */
+            height: 450px; /* Card Height */
+            background: white;
+            transition: transform 0.5s ease, opacity 0.5s ease, z-index 0.5s;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            /* Default Hidden State */
+            transform: translateX(-50%) scale(0.8); 
+            opacity: 0;
+            z-index: 0;
+            display: flex;
+            flex-direction: column;
         }
+
+        /* Image Area */
+        .card-img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        /* Text Area */
+        .card-info {
+            padding: 20px;
+            text-align: center;
+            background: #fff;
+            flex-grow: 1;
+        }
+        .card-category { font-size: 0.7rem; text-transform: uppercase; color: var(--gold); letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .card-title { font-family: serif; font-size: 1.2rem; margin: 0; color: #1a1a1a; }
+
+        /* --- CAROUSEL STATES (Subtle Stack - REVERTED) --- */
         
-        .sub-caption {
-            display: block;
-            font-family: 'Lato', sans-serif;
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 5px;
-            text-align: center;
-            padding-bottom: 15px;
+        /* 1. ACTIVE (Center) - Normal Scale (1.0) */
+        .carousel-card.active {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
 
-        /* --- 4. MODAL (LIGHTBOX) --- */
+        /* 2. PREVIOUS (Left Stack) - Slightly smaller (0.85) */
+        .carousel-card.prev {
+            transform: translateX(-120%) scale(0.85); 
+            opacity: 0.6;
+            z-index: 5;
+            filter: brightness(0.9); 
+        }
+
+        /* 3. NEXT (Right Stack) - Slightly smaller (0.85) */
+        .carousel-card.next {
+            transform: translateX(20%) scale(0.85); 
+            opacity: 0.6;
+            z-index: 5;
+            filter: brightness(0.9);
+        }
+
+        /* NAVIGATION ARROWS */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 20;
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .nav-btn:hover { background: var(--gold); color: #fff; }
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        /* --- MODAL (FIXED SIZE & SPACING) --- */
         .modal { 
             display: none; 
             position: fixed; 
@@ -114,58 +133,71 @@
             top: 0; 
             width: 100%; 
             height: 100%; 
-            overflow: auto; 
-            background-color: rgba(0,0,0,0.95); /* Very dark background */
+            background-color: rgba(0,0,0,0.95); 
+            
+            /* SCROLL & SPACING FIXES */
+            overflow-y: auto; 
+            padding-top: 40px;
+            padding-bottom: 100px; /* Prevents text hitting bottom edge */
+        }
+
+        .modal-content { 
+            margin: 0 auto; 
+            display: block; 
+            
+            /* SIZING FIXES */
+            width: auto;
+            max-width: 900px; /* Max width on big screens */
+            height: auto;
+            max-height: 75vh; /* Image takes 75% of screen height */
+            
+            object-fit: contain; 
+            border: 1px solid #333;
+        }
+
+        .close { 
+            position: absolute; 
+            top: 15px; 
+            right: 30px; 
+            color: #fff; 
+            font-size: 40px; 
+            cursor: pointer; 
+            z-index: 2010;
         }
         
-        .modal-content { 
+        .modal-caption { 
             margin: auto;
-            display: block;
-            width: auto;
-            max-width: 90%;
-            max-height: 85vh;
-            margin-top: 40px;
-            border: 2px solid #333;
+            max-width: 800px;
+            text-align: center; 
+            color: var(--gold); 
+            padding: 20px 0 10px 0; 
+            font-family: serif; 
+            font-size: 1.8rem; 
         }
-
-        .modal-caption {
+        
+        .modal-desc { 
             margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            text-align: center;
-            color: #ccc;
-            padding: 10px 0;
-            height: 150px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            max-width: 600px;
+            text-align: center; 
+            color: #ccc; 
+            font-size: 1rem; 
+            line-height: 1.6;
+            padding-bottom: 50px; /* Safe space */
         }
 
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .close:hover, .close:focus {
-            color: var(--gold);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Mobile */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .gallery-header { grid-template-columns: 1fr; gap: 20px; text-align: center; }
-            .header-title h1 { font-size: 2.5rem; }
+            .carousel-container { height: 450px; }
+            .carousel-card { width: 280px; height: 400px; }
+            .carousel-card.prev { transform: translateX(-105%) scale(0.85); }
+            .carousel-card.next { transform: translateX(5%) scale(0.85); }
             
-            /* On phone, make cards slightly smaller so you can see the next one peeking */
-            .gallery-item { flex: 0 0 85%; } 
-            .scroll-container { gap: 15px; }
+            /* Modal Mobile */
+            .modal-content { 
+                width: 100%; 
+                max-height: 50vh; 
+            }
+            .close { top: 10px; right: 20px; }
         }
     </style>
 </head>
@@ -184,97 +216,183 @@
     </header>
 
     <div class="header-section">
-        <div class="gallery-header">
-            <div class="header-title">
-                <h1>Our<br>Projects</h1>
-            </div>
-            <div class="header-desc">
-                <p>
-                    A showcase of our past work. From consecrating custom home altars to sourcing rare artifacts for office spaces.
-                    <br><br>
-                    Swipe to explore our journey. Click on any project to view the details.
-                </p>
-            </div>
-        </div>
+        <span class="header-subtitle">Our Portfolio</span>
+        <h1 class="header-title">Curated Experiences</h1>
+        <p class="header-desc">
+            Swipe to explore our past projects. From residential altars to complete temple installations.
+        </p>
     </div>
 
-    <div class="scroll-container">
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="setCategory('residential')">Residential</button>
+        <button class="filter-btn" onclick="setCategory('shrine')">Private Shrines</button>
+        <button class="filter-btn" onclick="setCategory('consultation')">Services</button>
+        <button class="filter-btn" onclick="setCategory('all')">View All</button>
+    </div>
+
+    <div class="carousel-container" id="carouselContainer">
+        <button class="nav-btn prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="nav-btn next-btn" onclick="moveSlide(1)">&#10095;</button>
         
-        <div class="gallery-item card" onclick="openModal(this)" 
-             data-img="../Images/Gallery/altar.jpeg" 
-             data-caption="Custom Home Altar Consecration">
-            <img src="../Images/Gallery/altar.jpeg" alt="Custom Altar Setup">
-            <div class="caption">Custom Home Altar</div>
-            <span class="sub-caption">Residential Project</span>
-        </div>
-
-        <div class="gallery-item card" onclick="openModal(this)"
-             data-img="https://images.unsplash.com/photo-1620313838209-e85d99723c04?w=800"
-             data-caption="Bronze Guan Yin Temple Installation">
-            <img src="https://images.unsplash.com/photo-1620313838209-e85d99723c04?w=800" alt="Statue">
-            <div class="caption">Bronze Guan Yin</div>
-            <span class="sub-caption">Temple Installation</span>
-        </div>
-
-        <div class="gallery-item card" onclick="openModal(this)"
-             data-img="https://images.unsplash.com/photo-1600609842388-439546743956?w=800"
-             data-caption="Office Feng Shui Harmony Layout">
-            <img src="https://images.unsplash.com/photo-1600609842388-439546743956?w=800" alt="Office Layout">
-            <div class="caption">Office Harmony</div>
-            <span class="sub-caption">Consultation</span>
-        </div>
-
-        <div class="gallery-item card" onclick="openModal(this)"
-             data-img="https://images.unsplash.com/photo-1518182170546-0766ce6f1a56?w=800"
-             data-caption="Rare Artifact Sourcing">
-            <img src="https://images.unsplash.com/photo-1518182170546-0766ce6f1a56?w=800" alt="Artifact">
-            <div class="caption">Rare Artifacts</div>
-            <span class="sub-caption">Private Collection</span>
-        </div>
-        
-        </div>
+        <div id="track"></div>
+    </div>
 
     <div id="galleryModal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
         <img class="modal-content" id="img01">
         <div id="caption" class="modal-caption"></div>
+        <div id="longDesc" class="modal-desc"></div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Craftsman Artifacts Singapore</p>
+        <p>&copy; 2026 Craftsmen Artifacts Singapore</p>
     </footer>
 
     <script>
-        // MODAL LOGIC
+        let allProjects = [];
+        let filteredProjects = [];
+        let currentIndex = 0;
+        const track = document.getElementById('track');
+
+        // 1. FETCH DATA
+        fetch('data/products.json')
+            .then(res => res.json())
+            .then(data => {
+                allProjects = data;
+                setCategory('residential'); // DEFAULT TO RESIDENTIAL
+            })
+            .catch(err => console.error(err));
+
+        // 2. SET CATEGORY
+        function setCategory(cat) {
+            // Update Buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.toLowerCase().includes(cat) || 
+                  (cat === 'all' && btn.innerText === 'VIEW ALL')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filter Data
+            if (cat === 'all') {
+                filteredProjects = allProjects;
+            } else {
+                filteredProjects = allProjects.filter(p => p.category === cat);
+            }
+
+            // Reset Carousel
+            currentIndex = 0;
+            renderCarousel();
+        }
+
+        // 3. RENDER CAROUSEL
+        function renderCarousel() {
+            track.innerHTML = '';
+            
+            if (filteredProjects.length === 0) {
+                track.innerHTML = '<p style="text-align:center; padding-top:100px; color:#999;">No projects found in this category.</p>';
+                return;
+            }
+
+            filteredProjects.forEach((project, index) => {
+                const card = document.createElement('div');
+                card.className = `carousel-card ${getCardClass(index)}`;
+                
+                // Clicking logic: if active, open modal. If side card, move to it.
+                card.onclick = () => {
+                    if (index === currentIndex) openModal(project);
+                    else {
+                        currentIndex = index;
+                        updateClasses();
+                    }
+                };
+
+                let displayCat = project.category === 'shrine' ? 'Private Shrine' : project.category;
+
+                card.innerHTML = `
+                    <img src="${project.image}" class="card-img" alt="${project.title}">
+                    <div class="card-info">
+                        <span class="card-category">${displayCat}</span>
+                        <h3 class="card-title">${project.title}</h3>
+                    </div>
+                `;
+                track.appendChild(card);
+            });
+        }
+
+        // 4. CLASS LOGIC (Subtle Stack)
+        function getCardClass(index) {
+            if (index === currentIndex) return 'active';
+            
+            // Handle looping logic
+            const total = filteredProjects.length;
+            const prevIndex = (currentIndex - 1 + total) % total;
+            const nextIndex = (currentIndex + 1) % total;
+
+            if (index === prevIndex) return 'prev';
+            if (index === nextIndex) return 'next';
+            
+            return ''; // Hidden
+        }
+
+        function updateClasses() {
+            const cards = document.querySelectorAll('.carousel-card');
+            cards.forEach((card, index) => {
+                card.className = `carousel-card ${getCardClass(index)}`;
+            });
+        }
+
+        function moveSlide(direction) {
+            const total = filteredProjects.length;
+            if (total === 0) return;
+            
+            currentIndex = (currentIndex + direction + total) % total;
+            updateClasses();
+        }
+
+        // 5. TOUCH SWIPE LOGIC
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const container = document.getElementById('carouselContainer');
+
+        container.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        container.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) moveSlide(1); // Swipe Left -> Next
+            if (touchEndX > touchStartX + 50) moveSlide(-1); // Swipe Right -> Prev
+        }
+
+        // Keyboard Nav
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowLeft") moveSlide(-1);
+            if (e.key === "ArrowRight") moveSlide(1);
+        });
+
+        // 6. MODAL
         const modal = document.getElementById("galleryModal");
         const modalImg = document.getElementById("img01");
-        const captionText = document.getElementById("caption");
-        const body = document.body;
+        const caption = document.getElementById("caption");
+        const desc = document.getElementById("longDesc");
 
-        function openModal(element) {
-            modal.style.display = "flex"; // Use flex to center image vertically
+        function openModal(project) {
+            modal.style.display = "flex";
             modal.style.flexDirection = "column";
-            modal.style.justifyContent = "center";
+            // Align to top so scrolling works naturally if tall
+            modal.style.justifyContent = "flex-start"; 
             
-            // Get data from the clicked card
-            modalImg.src = element.getAttribute('data-img');
-            captionText.innerHTML = element.getAttribute('data-caption');
-            
-            // Disable background scrolling
-            body.style.overflow = "hidden";
+            modalImg.src = project.image;
+            caption.innerHTML = project.title;
+            desc.innerHTML = project.description;
         }
 
-        function closeModal() {
-            modal.style.display = "none";
-            body.style.overflow = "auto";
-        }
+        function closeModal() { modal.style.display = "none"; }
+        window.onclick = (e) => { if (e.target == modal) closeModal(); }
 
-        // Close if clicking outside the image
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
     </script>
 
 </body>
