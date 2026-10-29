@@ -513,7 +513,14 @@ footer a { color: #fff; }
     --bronze-lo: #7E4C08;
     --jade-tint: #DCE7E0;
     --parchment: #F4ECDC;
+
+    /* Contrast pass */
+    --jade: #3F6A57;      /* labels and links: 5.4:1 on the page (was 4.3:1) */
+    --saffron: #B0700F;   /* characters, seals, rules: about 3.5:1 (was 2.6–2.8:1) */
+    --line: #B8C3BA;      /* dividers you can actually see (1.6:1, was 1.2:1) */
+    --mist-deep: #E3EAE4; /* alternate sections, so the page doesn't read as one sheet */
 }
+.section:not(.section-paper) { background: var(--mist-deep); }
 
 /* Logo: seal mark + name */
 .logo { align-items: center; gap: 12px; }
@@ -600,7 +607,7 @@ footer a { color: #fff; }
 }
 .service-media.panel span {
     font-family: var(--cn); font-weight: 700; font-size: clamp(4rem, 9vw, 7rem);
-    color: var(--saffron); opacity: 0.85; line-height: 1;
+    color: var(--saffron); line-height: 1;
 }
 .service-text h2 { display: flex; align-items: center; gap: 14px; }
 .service-text h2 .seal { width: 44px; height: 44px; font-size: 1.3rem; border-radius: 8px; }
