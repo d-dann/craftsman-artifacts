@@ -218,7 +218,15 @@ a.chip { text-decoration: none; }
 }
 .item img { width: 100%; height: 100%; object-fit: contain; padding: 12px; transition: transform 0.4s; }
 .item:hover img { transform: scale(1.03); }
-.item .name { font-family: var(--display); font-size: 1.15rem; display: block; }
+.names { display: block; }
+.item .name { font-family: var(--display); font-size: 1.15rem; display: block; line-height: 1.3; }
+.alt-name { display: block; color: var(--ink-soft); font-size: 0.92rem; line-height: 1.45; }
+.alt-name:lang(zh-Hans) { font-family: var(--cn); }
+:lang(th) { font-family: 'Mulish', 'Noto Sans Thai', 'Thonburi', 'Leelawadee UI', 'Tahoma', sans-serif; }
+#detail-title .name { display: block; }
+#detail-title .alt-name { font-family: var(--body); font-size: 1rem; margin-top: 2px; }
+#detail-title .alt-name:lang(zh-Hans) { font-family: var(--cn); font-size: 1.1rem; }
+.item .meta { display: block; margin-top: 2px; }
 .item .meta { color: var(--ink-soft); font-size: 0.9rem; }
 .tag { display: inline-block; background: var(--lotus); color: var(--ink); font-size: 0.8rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; margin-left: 6px; }
 .empty { color: var(--ink-soft); padding: 40px 0 80px; }
@@ -332,7 +340,8 @@ footer a { color: #fff; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 22px 14px; padding-bottom: 40px; }
     .item .frame { margin-bottom: 8px; }
     .item img { padding: 8px; }
-    .item .name { font-size: 1rem; line-height: 1.3; }
+    .item .name { font-size: 1rem; }
+    .alt-name { font-size: 0.85rem; }
 
     /* Services: seal sits beside its heading */
     .service { display: block; padding: 32px 0; }

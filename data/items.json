@@ -1,7 +1,8 @@
 [
     {
         "code": "BS-001",
-        "title": "Guan Yin 观音",
+        "title": "Guan Yin",
+        "title_zh": "观音",
         "category": "statues",
         "status": "available",
         "size": "30cm (H) x 15cm (W)",
@@ -11,7 +12,8 @@
     },
     {
         "code": "FS-001",
-        "title": "Golden Wu Lou 葫芦",
+        "title": "Golden Wu Lou",
+        "title_zh": "葫芦",
         "category": "fengshui",
         "status": "available",
         "size": "15cm (H)",
@@ -21,7 +23,8 @@
     },
     {
         "code": "FS-002",
-        "title": "Wealth Ingot 元宝",
+        "title": "Wealth Ingot",
+        "title_zh": "元宝",
         "category": "fengshui",
         "status": "available",
         "size": "10cm x 8cm",

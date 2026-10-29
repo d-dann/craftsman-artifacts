@@ -19,9 +19,17 @@ content:
         type: string
         required: true
       - name: title
-        label: Name (English + Chinese)
+        label: Name in English letters (for Thai pieces, the romanised name, e.g. Phra Buddha Chinnarat)
         type: string
-        required: true
+      - name: title_zh
+        label: Chinese name (optional)
+        type: string
+      - name: title_th
+        label: Thai name in Thai script (optional)
+        type: string
+      - name: aka
+        label: Other spellings, for search only (optional, e.g. Jinaraj, Chinaraj)
+        type: string
       - name: category
         label: Category
         type: select
