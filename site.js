@@ -7,10 +7,16 @@ const SITE = {
     whatsapp: "",
     // Telegram username without the @. e.g. "craftsmanartifacts"
     telegram: "",
-    hours: "9am – 6pm"
+    hours: "9am – 6pm",
+    hoursZh: "上午9点至下午6点"
 };
 
 /* ---------- Helpers (no need to edit below) ---------- */
+
+const IS_ZH = document.documentElement.lang.startsWith("zh");
+const WORDS = IS_ZH
+    ? { chat: "聊一聊", general: "您好，我经朋友介绍认识 Craftsman Artifacts，想进一步了解。" }
+    : { chat: "Have a chat", general: "Hi, I was referred to Craftsman Artifacts and would like to find out more." };
 
 // Path to the site root, so links work from any page depth.
 const ROOT = document.currentScript.src.replace(/site\.js.*$/, "");
@@ -36,7 +42,7 @@ function wireChatLinks(scope) {
         el.href = tgLink();
         if (SITE.telegram) { el.target = "_blank"; el.rel = "noopener"; }
     });
-    document.querySelectorAll("[data-hours]").forEach(el => el.textContent = SITE.hours);
+    document.querySelectorAll("[data-hours]").forEach(el => el.textContent = IS_ZH ? SITE.hoursZh : SITE.hours);
 }
 
 // Image paths in data/items.json are written from the site root.
@@ -55,17 +61,39 @@ function addFloatingChat() {
     document.body.classList.add("has-chat-bar");
     const a = document.createElement("a");
     a.className = "float-chat";
-    a.setAttribute("data-wa", "Hi, I was referred to Craftsman Artifacts and would like to find out more.");
-    a.innerHTML = "Have a chat";
+    a.setAttribute("data-wa", WORDS.general);
+    a.textContent = WORDS.chat;
     document.body.appendChild(a);
+    if (!("IntersectionObserver" in window)) return;
 
-    // Wait until the page's own first chat button has scrolled away, so two never show at once.
-    const first = document.querySelector("main [data-wa]");
-    if (first && "IntersectionObserver" in window) {
-        a.classList.add("waiting");
-        new IntersectionObserver(([entry]) => {
-            a.classList.toggle("waiting", entry.isIntersecting || entry.boundingClientRect.top > 0);
-        }).observe(first);
+    // Hide the bar while a big chat button is on screen (the home hero, closing bands),
+    // and until the hero button has been scrolled past, so two never show at once.
+    const lead = document.querySelector("main [data-lead]");
+    const bands = [...document.querySelectorAll("main .chat-band")];
+    const seen = new Map();
+    const update = () => {
+        const leadAhead = lead && (seen.get(lead) || lead.getBoundingClientRect().top > 0);
+        const bandOnScreen = bands.some(b => seen.get(b));
+        a.classList.toggle("waiting", Boolean(leadAhead || bandOnScreen));
+    };
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => seen.set(e.target, e.isIntersecting));
+        update();
+    });
+    [lead, ...bands].filter(Boolean).forEach(el => io.observe(el));
+    update();
+
+    // On pages with topics (Services), the bar's message follows the section being read.
+    const topics = [...document.querySelectorAll("[data-chat-topic]")];
+    if (topics.length) {
+        const topicIO = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                a.setAttribute("data-wa", e.target.getAttribute("data-chat-topic"));
+                a.href = waLink(a.getAttribute("data-wa"));
+            });
+        }, { rootMargin: "-45% 0px -45% 0px" });
+        topics.forEach(t => topicIO.observe(t));
     }
 }
 

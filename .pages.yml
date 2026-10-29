@@ -60,3 +60,9 @@ content:
       - name: desc
         label: Description (what it is and how it's honoured; no promised results)
         type: text
+      - name: material_zh
+        label: Material in Chinese (optional; Chinese pages use English if blank)
+        type: string
+      - name: desc_zh
+        label: Description in Chinese (optional; Chinese pages use English if blank)
+        type: text

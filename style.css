@@ -23,6 +23,14 @@
     --measure: 64ch;
 }
 
+/* Chinese pages: serif headings in Noto Serif SC, body in the reader's system Chinese font */
+html[lang^="zh"] {
+    --display: 'Noto Serif SC', 'Songti SC', serif;
+    --body: 'Mulish', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+html[lang^="zh"] body { line-height: 1.85; }
+html[lang^="zh"] h1, html[lang^="zh"] h2, html[lang^="zh"] h3 { font-weight: 500; letter-spacing: 0.04em; }
+
 * { box-sizing: border-box; }
 
 body {
@@ -85,6 +93,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 }
 .nav-links a:hover { color: var(--ink); background: var(--paper); }
 .nav-links a.active { color: var(--ink); background: var(--lotus); }
+.nav-links { margin-left: auto; }
+.lang {
+    flex: none; color: var(--jade); font-weight: 700; font-size: 0.92rem; text-decoration: none;
+    padding: 5px 14px; border: 1.5px solid var(--jade); border-radius: 999px;
+}
+.lang:hover { background: var(--jade); color: #fff; }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -274,7 +288,9 @@ footer a { color: #fff; }
     body.has-chat-bar { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
 
     /* Slim header: logo row + one scrollable row of links; hides while scrolling down */
-    .site-header nav { flex-direction: column; align-items: stretch; gap: 4px; padding: 10px 0 8px; }
+    .site-header nav { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 0; padding: 10px 0 8px; }
+    .lang { grid-row: 1; grid-column: 2; margin-right: 16px; padding: 4px 12px; }
+    .nav-links { grid-column: 1 / -1; margin-left: 0; }
     .logo { padding: 0 20px; font-size: 1.2rem; }
     .nav-links {
         flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
