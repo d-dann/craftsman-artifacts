@@ -63,6 +63,11 @@ function showItems(mode) {
                 ? (i.category === "work" || i.status === "sold")
                 : (i.category !== "work" && i.status !== "sold"))
             .map(i => ({ ...i, group: i.category === "work" ? "work" : (mode === "gallery" ? "homed" : i.category) }));
+        // Hide filters that have nothing in them yet, so no tab leads to an empty page.
+        document.querySelectorAll(".chip[data-filter]").forEach(chip => {
+            const f = chip.dataset.filter;
+            chip.hidden = f !== "all" && !items.some(i => i.group === f);
+        });
         render();
     }).catch(() => {
         grid.innerHTML = `<p class="empty">${L.failed}</p>`;
