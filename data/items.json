@@ -1,0 +1,64 @@
+[
+    {
+        "code": "BS-001",
+        "title": "Guan Yin 观音",
+        "category": "statues",
+        "status": "available",
+        "size": "30cm (H) x 15cm (W)",
+        "material": "Solid bronze, antique finish",
+        "image": "images/prods/buddha/guanyin.jpeg",
+        "desc": "Guan Yin, the Bodhisattva of compassion, is traditionally honoured in the home as a presence of peace and kindness. Consecrated and placed for you by our Master."
+    },
+    {
+        "code": "FS-001",
+        "title": "Golden Wu Lou 葫芦",
+        "category": "fengshui",
+        "status": "available",
+        "size": "15cm (H)",
+        "material": "Polished brass",
+        "image": "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?w=600",
+        "desc": "The Wu Lou is a traditional symbol of health and long life. Its lid opens so written wishes or mantras can be placed inside."
+    },
+    {
+        "code": "FS-002",
+        "title": "Wealth Ingot 元宝",
+        "category": "fengshui",
+        "status": "available",
+        "size": "10cm x 8cm",
+        "material": "Natural yellow jade",
+        "image": "https://images.unsplash.com/photo-1621262799349-2b87648356d2?w=600",
+        "desc": "The Yuan Bao ingot is traditionally associated with prosperity (招财). We advise on where in your home it is best placed."
+    },
+    {
+        "code": "W-001",
+        "title": "Custom Teak Altar",
+        "category": "work",
+        "status": "done",
+        "image": "images/showcase/altar.jpeg",
+        "desc": "Consecration of a custom-carved teak altar for a family home, arranged according to the home's Feng Shui."
+    },
+    {
+        "code": "W-002",
+        "title": "Bronze Guan Yin Statue",
+        "category": "work",
+        "status": "done",
+        "image": "https://images.unsplash.com/photo-1620313838209-e85d99723c04?w=800",
+        "desc": "Installation and consecration of a 2-metre bronze Guan Yin statue for a private shrine."
+    },
+    {
+        "code": "W-003",
+        "title": "Office Feng Shui Layout",
+        "category": "work",
+        "status": "done",
+        "image": "https://images.unsplash.com/photo-1600609842388-439546743956?w=800",
+        "desc": "A Feng Shui review of an office, with guidance on layout and the placement of traditional pieces."
+    },
+    {
+        "code": "W-004",
+        "title": "Rare Dynasty Vase Sourcing",
+        "category": "work",
+        "status": "done",
+        "image": "https://images.unsplash.com/photo-1518182170546-0766ce6f1a56?w=800",
+        "desc": "Sourcing of dynasty-era ceramics for a private collector."
+    }
+]

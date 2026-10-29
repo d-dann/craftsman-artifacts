@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery | Craftsmen Artifacts</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>Gallery | Craftsman Artifacts</title>
     <link rel="stylesheet" href="../style.css">
     
     <style>
@@ -241,6 +242,7 @@
             <a href="../" class="logo">Craftsman Artifacts</a>
             <div class="nav-links">
                 <a href="../">Home</a>
+                <a href="../services/">Services</a>
                 <a href="../products/">Collection</a>
                 <a href="./" class="active">Gallery</a>
                 <a href="../contact/">Contact</a>
@@ -249,18 +251,17 @@
     </header>
 
     <div class="header-section">
-        <span class="header-subtitle">Our Portfolio</span>
-        <h1 class="header-title">Curated Experiences</h1>
+        <span class="header-subtitle">Gallery</span>
+        <h1 class="header-title">Past Work &amp; Homed Pieces</h1>
         <p class="header-desc">
-            Swipe to explore our past projects. From residential altars to complete temple installations.
+            Pieces that have found their home, and moments from past work. Shared with our clients' permission.
         </p>
     </div>
 
     <div class="filter-container">
-        <button class="filter-btn active" onclick="setCategory('residential')">Residential</button>
-        <button class="filter-btn" onclick="setCategory('shrine')">Private Shrines</button>
-        <button class="filter-btn" onclick="setCategory('consultation')">Services</button>
-        <button class="filter-btn" onclick="setCategory('all')">View All</button>
+        <button class="filter-btn active" data-cat="all" onclick="setCategory('all')">View All</button>
+        <button class="filter-btn" data-cat="work" onclick="setCategory('work')">Our Work</button>
+        <button class="filter-btn" data-cat="homed" onclick="setCategory('homed')">Homed Pieces</button>
     </div>
 
     <div class="carousel-container" id="carouselContainer">
@@ -278,9 +279,10 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Craftsmen Artifacts Singapore</p>
+        <p>&copy; 2026 Craftsman Artifacts Singapore</p>
     </footer>
 
+    <script src="../site.js"></script>
     <script>
         let allProjects = [];
         let filteredProjects = [];
@@ -288,11 +290,13 @@
         const track = document.getElementById('track');
 
         // 1. FETCH DATA
-        fetch('data/products.json')
-            .then(res => res.json())
+        // Gallery shows past work, plus Collection pieces marked "sold".
+        loadItems()
             .then(data => {
-                allProjects = data;
-                setCategory('residential'); // DEFAULT TO RESIDENTIAL
+                allProjects = data
+                    .filter(i => i.category === 'work' || i.status === 'sold')
+                    .map(i => ({ ...i, group: i.category === 'work' ? 'work' : 'homed', image: asset(i.image) }));
+                setCategory('all');
             })
             .catch(err => console.error(err));
 
@@ -300,18 +304,14 @@
         function setCategory(cat) {
             // Update Buttons
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if(btn.innerText.toLowerCase().includes(cat) || 
-                  (cat === 'all' && btn.innerText === 'VIEW ALL')) {
-                    btn.classList.add('active');
-                }
+                btn.classList.toggle('active', btn.getAttribute('data-cat') === cat);
             });
 
             // Filter Data
             if (cat === 'all') {
                 filteredProjects = allProjects;
             } else {
-                filteredProjects = allProjects.filter(p => p.category === cat);
+                filteredProjects = allProjects.filter(p => p.group === cat);
             }
 
             // Reset Carousel
@@ -324,7 +324,7 @@
             track.innerHTML = '';
             
             if (filteredProjects.length === 0) {
-                track.innerHTML = '<p style="text-align:center; padding-top:100px; color:#999;">No projects found in this category.</p>';
+                track.innerHTML = '<p style="text-align:center; padding-top:100px; color:#999;">Nothing here yet.</p>';
                 return;
             }
 
@@ -341,7 +341,7 @@
                     }
                 };
 
-                let displayCat = project.category === 'shrine' ? 'Private Shrine' : project.category;
+                let displayCat = project.group === 'work' ? 'Our Work' : 'Homed Piece';
 
                 card.innerHTML = `
                     <img src="${project.image}" class="card-img" alt="${project.title}">
@@ -424,9 +424,8 @@
             document.documentElement.style.overflow = "hidden"; 
             
             modalImg.src = project.image;
-            caption.innerHTML = project.title;
-            // Supports both naming conventions
-            desc.innerHTML = project.description || project.desc;
+            caption.textContent = project.title;
+            desc.textContent = project.desc || '';
         }
 
         // 2. UPDATE CLOSE FUNCTION

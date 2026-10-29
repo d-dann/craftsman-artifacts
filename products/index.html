@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collection | Craftsmen Artifacts</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>Collection | Craftsman Artifacts</title>
     <link rel="stylesheet" href="../style.css">
 
     <style>
@@ -224,6 +225,7 @@
             <a href="../" class="logo">Craftsman Artifacts</a>
             <div class="nav-links">
                 <a href="../">Home</a>
+                <a href="../services/">Services</a>
                 <a href="./" class="active">Collection</a>
                 <a href="../gallery/">Gallery</a>
                 <a href="../contact/">Contact</a>
@@ -238,19 +240,21 @@
             </div>
             <div class="header-desc">
                 <p>
-                    Welcome to our collection. We hand-pick each item not just for how it looks, but for the good energy it brings. 
+                    Each piece is chosen for its craftsmanship and consecrated with care.
                     <br><br>
-                    Whether you are looking for a centerpiece for your altar or a small token of luck for your desk, 
-                    we hope you find something here that makes your space feel a little more peaceful.
+                    When you take a piece home, our Master consecrates it, brings it to you, helps place it in a suitable
+                    Feng Shui spot, and consecrates it again there. If a piece speaks to you, ask us about it.
+                    We'll share its story and help you decide if it suits your space.
                 </p>
             </div>
         </div>
     </div>
 
     <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterSelection('all')">View All</button>
-        <button class="filter-btn" onclick="filterSelection('statues')">Statues</button>
-        <button class="filter-btn" onclick="filterSelection('others')">Others</button>
+        <button class="filter-btn active" data-cat="all" onclick="filterSelection('all')">View All</button>
+        <button class="filter-btn" data-cat="statues" onclick="filterSelection('statues')">Buddha Statues</button>
+        <button class="filter-btn" data-cat="amulets" onclick="filterSelection('amulets')">Amulets</button>
+        <button class="filter-btn" data-cat="fengshui" onclick="filterSelection('fengshui')">Feng Shui Pieces</button>
     </div>
 
     <div class="product-grid" id="grid-container"></div>
@@ -261,7 +265,7 @@
             <img id="modalImg" class="modal-img" src="" alt="">
             <div class="modal-details">
                 <h2 id="modalTitle" style="font-family:'Playfair Display'; font-size: 2.2rem; margin-top:0; color:#1a1a1a;">Title</h2>
-                <p id="modalPrice" style="color:var(--gold); font-size: 1.5rem; margin: 10px 0 30px 0; font-weight:bold;">$0.00</p>
+                <p id="modalCode" style="color:var(--gold); font-size: 1rem; letter-spacing: 1px; margin: 10px 0 30px 0;"></p>
                 
                 <div style="font-size: 0.95rem; color: #555; line-height: 1.8;">
                     <p style="margin-bottom: 5px;"><strong>Dimensions:</strong> <span id="modalSize"></span></p>
@@ -269,50 +273,51 @@
                     <p id="modalDesc"></p>
                 </div>
 
-                <a id="modalBuyBtn" href="#" class="btn" target="_blank" style="margin-top: 40px; text-align:center;">Inquire to Purchase</a>
+                <a id="modalBuyBtn" class="btn" style="margin-top: 40px; text-align:center;">Ask about this piece</a>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Craftsmen Artifacts Singapore</p>
+        <p>&copy; 2026 Craftsman Artifacts Singapore</p>
     </footer>
 
+    <script src="../site.js"></script>
     <script>
-        // 1. FETCH JSON DATA
-        // FIX: Added "../" to path so it finds the data folder from inside 'products'
-        fetch('data/products.json')
-            .then(response => response.json())
+        // 1. LOAD ITEMS (sold pieces and past work are shown in the Gallery instead)
+        const SHOP_CATEGORIES = ["statues", "amulets", "fengshui"];
+        const esc = t => String(t || "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+        loadItems()
             .then(data => {
                 const container = document.getElementById('grid-container');
-                
-                data.forEach(product => {
-                    const categoryClass = product.category ? product.category.toLowerCase() : 'other';
-                    
-                    // FIX: Using product.image directly since your JSON likely has the full relative path now
-                    // If your images break, change this line back to: `../${product.image}`
-                    const imagePath = product.image; 
+                const items = data.filter(i => SHOP_CATEGORIES.includes(i.category) && i.status !== "sold");
 
-                    const productHTML = `
-                        <div class="card product-item ${categoryClass}" 
-                             onclick="openModal(this)" 
-                             data-title="${product.title}" 
-                             data-size="${product.size}"
-                             data-material="${product.material}"
-                             data-price="${product.price}" 
-                             data-img="${imagePath}" 
-                             data-desc="${product.desc}">
-                            <img src="${imagePath}" alt="${product.title}">
+                if (items.length === 0) {
+                    container.innerHTML = '<p style="text-align:center; color:#999;">New pieces coming soon. Message us to ask what is available.</p>';
+                    return;
+                }
+
+                items.forEach(item => {
+                    const reserved = item.status === "reserved" ? '<span class="price">Reserved</span>' : '';
+                    container.innerHTML += `
+                        <div class="card product-item ${esc(item.category)}"
+                             onclick="openModal(this)"
+                             data-code="${esc(item.code)}"
+                             data-title="${esc(item.title)}"
+                             data-size="${esc(item.size)}"
+                             data-material="${esc(item.material)}"
+                             data-img="${esc(asset(item.image))}"
+                             data-desc="${esc(item.desc)}">
+                            <img src="${esc(asset(item.image))}" alt="${esc(item.title)}">
                             <div class="card-info">
-                                <span class="card-title" style="display:block; font-family:'Playfair Display'; font-size:1.1rem; color:#333; margin-bottom:5px;">${product.title}</span>
-                                <span class="price" style="color:var(--gold); font-weight:bold;">${product.price}</span>
+                                <span class="card-title">${esc(item.title)}</span>
+                                ${reserved}
                             </div>
-                        </div>
-                    `;
-                    container.innerHTML += productHTML;
+                        </div>`;
                 });
             })
-            .catch(error => console.error('Error loading JSON:', error));
+            .catch(error => console.error('Error loading items:', error));
 
         // 2. FILTER LOGIC
         function filterSelection(category) {
@@ -320,10 +325,7 @@
             const btns = document.getElementsByClassName("filter-btn");
             
             for (let btn of btns) {
-                btn.classList.remove("active");
-                if (btn.innerText.toLowerCase().includes(category) || (category === 'all' && btn.innerText === 'View All')) {
-                    btn.classList.add("active");
-                }
+                btn.classList.toggle("active", btn.getAttribute("data-cat") === category);
             }
             
             for (let i = 0; i < items.length; i++) {
@@ -342,12 +344,13 @@
             document.getElementById("modalTitle").innerText = element.getAttribute("data-title");
             document.getElementById("modalSize").innerText = element.getAttribute("data-size");
             document.getElementById("modalMaterial").innerText = element.getAttribute("data-material");
-            document.getElementById("modalPrice").innerText = element.getAttribute("data-price");
+            document.getElementById("modalCode").innerText = "Piece " + element.getAttribute("data-code");
             document.getElementById("modalDesc").innerText = element.getAttribute("data-desc");
             document.getElementById("modalImg").src = element.getAttribute("data-img");
             
-            const waMsg = `Hi Craftsman Artifacts, I am interested in the ${element.getAttribute("data-title")}.`;
-            document.getElementById("modalBuyBtn").href = `https://wa.me/6591234567?text=${encodeURIComponent(waMsg)}`;
+            const btn = document.getElementById("modalBuyBtn");
+            btn.setAttribute("data-wa", `Hi, I'm interested in piece ${element.getAttribute("data-code")} – ${element.getAttribute("data-title")}. Could you tell me more?`);
+            wireChatLinks(btn.parentElement);
 
             modal.style.display = "block";
             
