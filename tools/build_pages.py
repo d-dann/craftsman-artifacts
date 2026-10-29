@@ -283,7 +283,7 @@ def build(lang):
             </div>
         </section>
 
-        <section class="section section-paper">
+        <section class="section section-dark">
             <div class="wrap pillars">
 {pillars}
             </div>
