@@ -2,446 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery | Craftsmen Artifacts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Gallery | Craftsman Artifacts</title>
     <link rel="stylesheet" href="../style.css">
-    
-    <style>
-        /* --- 1. HEADER (Dark & Gold) --- */
-        .header-section {
-            background-color: #1a1a1a; 
-            color: #fff;
-            padding: 60px 20px; 
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .header-subtitle { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; color: #fff; margin-bottom: 10px; display: block; }
-        /* Using var(--gold) to match Products page exactly */
-        .header-title { font-size: 2.5rem; font-family: serif; color: var(--gold); margin: 0 0 15px 0; font-weight: normal; }
-        .header-desc { color: #ccc; max-width: 600px; margin: 0 auto; line-height: 1.6; font-size: 1rem; font-family: sans-serif; }
-
-        /* --- 2. FILTERS --- */
-        .filter-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; padding: 0 20px; }
-        .filter-btn { background: none; border: none; cursor: pointer; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; padding: 10px 15px; color: #888; transition: all 0.3s ease; position: relative; }
-        .filter-btn::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 5px; left: 50%; background: var(--gold); transition: 0.3s; transform: translateX(-50%); }
-        .filter-btn:hover { color: #000; }
-        .filter-btn.active { color: #000; font-weight: bold; }
-        .filter-btn.active::after { width: 100%; }
-
-        /* --- 3. 3D CAROUSEL CONTAINER --- */
-        .carousel-container {
-            position: relative;
-            width: 100%;
-            max-width: 1000px;
-            height: 500px; /* Fixed height for the stack area */
-            margin: 0 auto 50px;
-            perspective: 1000px; /* Creates the 3D depth */
-            overflow: hidden; /* Hides cards flying off screen */
-            padding-top: 20px;
-        }
-
-        /* The Card Itself */
-        .carousel-card {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            width: 320px; /* Card Width */
-            height: 450px; /* Card Height */
-            background: white;
-            transition: transform 0.5s ease, opacity 0.5s ease, z-index 0.5s;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            /* Default Hidden State */
-            transform: translateX(-50%) scale(0.8); 
-            opacity: 0;
-            z-index: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Image Area */
-        .card-img {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            border-bottom: 3px solid var(--gold);
-        }
-
-        /* Text Area */
-        .card-info {
-            padding: 20px;
-            text-align: center;
-            background: #fff;
-            flex-grow: 1;
-        }
-        .card-category { font-size: 0.7rem; text-transform: uppercase; color: var(--gold); letter-spacing: 1px; display: block; margin-bottom: 5px; }
-        .card-title { font-family: serif; font-size: 1.2rem; margin: 0; color: #1a1a1a; }
-
-        /* --- CAROUSEL STATES (Subtle Stack - REVERTED) --- */
-        
-        /* 1. ACTIVE (Center) - Normal Scale (1.0) */
-        .carousel-card.active {
-            transform: translateX(-50%) scale(1);
-            opacity: 1;
-            z-index: 10;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
-
-        /* 2. PREVIOUS (Left Stack) - Slightly smaller (0.85) */
-        .carousel-card.prev {
-            transform: translateX(-120%) scale(0.85); 
-            opacity: 0.6;
-            z-index: 5;
-            filter: brightness(0.9); 
-        }
-
-        /* 3. NEXT (Right Stack) - Slightly smaller (0.85) */
-        .carousel-card.next {
-            transform: translateX(20%) scale(0.85); 
-            opacity: 0.6;
-            z-index: 5;
-            filter: brightness(0.9);
-        }
-
-        /* NAVIGATION ARROWS */
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.8);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 20;
-            font-size: 1.5rem;
-            color: #1a1a1a;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: 0.3s;
-        }
-        .nav-btn:hover { background: var(--gold); color: #fff; }
-        .prev-btn { left: 20px; }
-        .next-btn { right: 20px; }
-
-        /* --- MODAL (FIXED SIZE & SPACING) --- */
-        .modal { 
-            display: none; 
-            position: fixed; 
-            z-index: 2000; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0,0,0,0.95); 
-            
-            /* SCROLL & SPACING FIXES */
-            overflow-y: auto; 
-            padding-top: 40px;
-            padding-bottom: 100px; /* Prevents text hitting bottom edge */
-        }
-
-        .modal-content { 
-            margin: 0 auto; 
-            display: block; 
-            
-            /* SIZING FIXES */
-            width: auto;
-            max-width: 900px; /* Max width on big screens */
-            height: auto;
-            max-height: 75vh; /* Image takes 75% of screen height */
-            
-            object-fit: contain; 
-            border: 1px solid #333;
-        }
-
-        .close { 
-            position: absolute; 
-            top: 15px; 
-            right: 30px; 
-            color: #fff; 
-            font-size: 40px; 
-            cursor: pointer; 
-            z-index: 2010;
-        }
-        
-        .modal-caption { 
-            margin: auto;
-            max-width: 800px;
-            text-align: center; 
-            color: var(--gold); 
-            padding: 20px 0 10px 0; 
-            font-family: serif; 
-            font-size: 1.8rem; 
-        }
-        
-        .modal-desc { 
-            margin: auto;
-            max-width: 600px;
-            text-align: center; 
-            color: #ccc; 
-            font-size: 1rem; 
-            line-height: 1.6;
-            padding-bottom: 50px; /* Safe space */
-        }
-
-        /* --- MOBILE TEXT & LAYOUT FIXES --- */
-        @media (max-width: 768px) {
-            
-            /* 1. Prevent Horizontal Scrolling */
-            body, html {
-                overflow-x: hidden;
-                width: 100%;
-            }
-
-            /* 2. Shrink Big Headers */
-            .header-title {
-                font-size: 2rem !important; /* Force smaller size */
-                word-wrap: break-word;      /* Break long words if needed */
-                padding: 0 10px;            /* Add breathing room */
-            }
-
-            .header-desc {
-                font-size: 0.95rem;
-                padding: 0 20px;            /* Ensure text doesn't touch edges */
-                width: auto;
-            }
-
-            /* 3. Fix Carousel Cards Clipping */
-            .carousel-container {
-                max-width: 100%;            /* Ensure container fits */
-                overflow: hidden;           /* Hide anything sticking out */
-            }
-            
-            .carousel-card {
-                width: 75vw;                /* Use Viewport Width instead of fixed px */
-                max-width: 280px;           /* Cap it at 280px */
-                height: 400px;
-            }
-
-            /* 4. Fix Modal Text Overflow */
-            .modal-caption {
-                font-size: 1.4rem;          /* Smaller title in popup */
-                word-wrap: break-word;      /* essential for long titles */
-                width: 90%;                 /* Ensure padding on sides */
-            }
-            
-            .modal-desc {
-                font-size: 0.9rem;
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-        }
-    </style>
 </head>
-<body>
+<body data-page="gallery">
 
-    <header>
+    <header class="site-header">
         <nav>
             <a href="../" class="logo">Craftsman Artifacts</a>
             <div class="nav-links">
                 <a href="../">Home</a>
+                <a href="../services/">Services</a>
                 <a href="../products/">Collection</a>
-                <a href="./" class="active">Gallery</a>
+                <a href="../gallery/" class="active" aria-current="page">Gallery</a>
                 <a href="../contact/">Contact</a>
             </div>
+            <a class="lang" href="../zh/gallery/" lang="zh-Hans" hreflang="zh-Hans">中文</a>
         </nav>
     </header>
 
-    <div class="header-section">
-        <span class="header-subtitle">Our Portfolio</span>
-        <h1 class="header-title">Curated Experiences</h1>
-        <p class="header-desc">
-            Swipe to explore our past projects. From residential altars to complete temple installations.
-        </p>
-    </div>
+    <main>
+        <section class="page-head">
+            <div class="wrap">
+                <div>
+                    <h1>Gallery</h1>
+                    <p>Pieces that have found their home, and moments from past work. Shared with our clients' permission.</p>
+                </div>
+            </div>
+        </section>
 
-    <div class="filter-container">
-        <button class="filter-btn active" onclick="setCategory('residential')">Residential</button>
-        <button class="filter-btn" onclick="setCategory('shrine')">Private Shrines</button>
-        <button class="filter-btn" onclick="setCategory('consultation')">Services</button>
-        <button class="filter-btn" onclick="setCategory('all')">View All</button>
-    </div>
+        <div class="wrap">
+            <div class="tools">
+                <div class="chips" role="group" aria-label="Filter gallery">
+                    <button class="chip" data-filter="all" aria-pressed="true">Everything</button>
+                    <button class="chip" data-filter="work" aria-pressed="false">Our work</button>
+                    <button class="chip" data-filter="homed" aria-pressed="false">Pieces now in homes</button>
+                </div>
+            </div>
+            <div class="grid" id="grid"></div>
+        </div>
 
-    <div class="carousel-container" id="carouselContainer">
-        <button class="nav-btn prev-btn" onclick="moveSlide(-1)">&#10094;</button>
-        <button class="nav-btn next-btn" onclick="moveSlide(1)">&#10095;</button>
-        
-        <div id="track"></div>
-    </div>
+        <dialog class="detail" id="detail" aria-labelledby="detail-title">
+            <div class="detail-body">
+                <img id="detail-img" src="" alt="">
+                <div class="detail-text">
+                    <button class="close" type="button" aria-label="Close">&times;</button>
+                    <h2 id="detail-title"></h2>
+                    <p class="code" id="detail-code"></p>
+                    <dl id="detail-facts"></dl>
+                    <p id="detail-desc"></p>
+                    <a class="btn" id="detail-btn"></a>
+                </div>
+            </div>
+        </dialog>
 
-    <div id="galleryModal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="img01">
-        <div id="caption" class="modal-caption"></div>
-        <div id="longDesc" class="modal-desc"></div>
-    </div>
+    </main>
 
     <footer>
-        <p>&copy; 2026 Craftsmen Artifacts Singapore</p>
+        <div class="wrap">
+            <span>&copy; 2026 Craftsman Artifacts, Singapore</span>
+            <span>Replies <span data-hours>9am – 6pm</span> · <a data-wa="Hi, I was referred to Craftsman Artifacts and would like to find out more.">Have a chat</a></span>
+        </div>
     </footer>
 
-    <script>
-        let allProjects = [];
-        let filteredProjects = [];
-        let currentIndex = 0;
-        const track = document.getElementById('track');
-
-        // 1. FETCH DATA
-        fetch('data/products.json')
-            .then(res => res.json())
-            .then(data => {
-                allProjects = data;
-                setCategory('residential'); // DEFAULT TO RESIDENTIAL
-            })
-            .catch(err => console.error(err));
-
-        // 2. SET CATEGORY
-        function setCategory(cat) {
-            // Update Buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if(btn.innerText.toLowerCase().includes(cat) || 
-                  (cat === 'all' && btn.innerText === 'VIEW ALL')) {
-                    btn.classList.add('active');
-                }
-            });
-
-            // Filter Data
-            if (cat === 'all') {
-                filteredProjects = allProjects;
-            } else {
-                filteredProjects = allProjects.filter(p => p.category === cat);
-            }
-
-            // Reset Carousel
-            currentIndex = 0;
-            renderCarousel();
-        }
-
-        // 3. RENDER CAROUSEL
-        function renderCarousel() {
-            track.innerHTML = '';
-            
-            if (filteredProjects.length === 0) {
-                track.innerHTML = '<p style="text-align:center; padding-top:100px; color:#999;">No projects found in this category.</p>';
-                return;
-            }
-
-            filteredProjects.forEach((project, index) => {
-                const card = document.createElement('div');
-                card.className = `carousel-card ${getCardClass(index)}`;
-                
-                // Clicking logic: if active, open modal. If side card, move to it.
-                card.onclick = () => {
-                    if (index === currentIndex) openModal(project);
-                    else {
-                        currentIndex = index;
-                        updateClasses();
-                    }
-                };
-
-                let displayCat = project.category === 'shrine' ? 'Private Shrine' : project.category;
-
-                card.innerHTML = `
-                    <img src="${project.image}" class="card-img" alt="${project.title}">
-                    <div class="card-info">
-                        <span class="card-category">${displayCat}</span>
-                        <h3 class="card-title">${project.title}</h3>
-                    </div>
-                `;
-                track.appendChild(card);
-            });
-        }
-
-        // 4. CLASS LOGIC (Subtle Stack)
-        function getCardClass(index) {
-            if (index === currentIndex) return 'active';
-            
-            // Handle looping logic
-            const total = filteredProjects.length;
-            const prevIndex = (currentIndex - 1 + total) % total;
-            const nextIndex = (currentIndex + 1) % total;
-
-            if (index === prevIndex) return 'prev';
-            if (index === nextIndex) return 'next';
-            
-            return ''; // Hidden
-        }
-
-        function updateClasses() {
-            const cards = document.querySelectorAll('.carousel-card');
-            cards.forEach((card, index) => {
-                card.className = `carousel-card ${getCardClass(index)}`;
-            });
-        }
-
-        function moveSlide(direction) {
-            const total = filteredProjects.length;
-            if (total === 0) return;
-            
-            currentIndex = (currentIndex + direction + total) % total;
-            updateClasses();
-        }
-
-        // 5. TOUCH SWIPE LOGIC
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const container = document.getElementById('carouselContainer');
-
-        container.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
-        container.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            if (touchEndX < touchStartX - 50) moveSlide(1); // Swipe Left -> Next
-            if (touchEndX > touchStartX + 50) moveSlide(-1); // Swipe Right -> Prev
-        }
-
-        // Keyboard Nav
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "ArrowLeft") moveSlide(-1);
-            if (e.key === "ArrowRight") moveSlide(1);
-        });
-
-        // 6. MODAL
-        const modal = document.getElementById("galleryModal");
-        const modalImg = document.getElementById("img01");
-        const caption = document.getElementById("caption");
-        const desc = document.getElementById("longDesc");
-
-        
-        // 1. UPDATE OPEN FUNCTION
-        function openModal(project) {
-            modal.style.display = "flex";
-            modal.style.flexDirection = "column";
-            modal.style.justifyContent = "flex-start"; 
-            
-            // --- FIX: Lock BOTH html and body ---
-            document.body.style.overflow = "hidden";
-            document.documentElement.style.overflow = "hidden"; 
-            
-            modalImg.src = project.image;
-            caption.innerHTML = project.title;
-            // Supports both naming conventions
-            desc.innerHTML = project.description || project.desc;
-        }
-
-        // 2. UPDATE CLOSE FUNCTION
-        function closeModal() { 
-            modal.style.display = "none";
-            
-            // --- FIX: Unlock BOTH html and body ---
-            document.body.style.overflow = "auto";
-            document.documentElement.style.overflow = "auto";
-        }
-        window.onclick = (e) => { if (e.target == modal) closeModal(); }
-
-        
-
-    </script>
-
+    <script src="../site.js"></script>
+    <script src="../collection.js"></script>
+    <script>showItems("gallery");</script>
 </body>
 </html>

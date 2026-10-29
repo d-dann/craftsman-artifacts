@@ -1,0 +1,76 @@
+# Pages CMS (https://app.pagescms.org) — a free editor for this site.
+# Sign in with GitHub, open this repo, and "Pieces & past work" appears as a form.
+# Uploaded photos are saved into images/items/ in this repo.
+
+media:
+  input: images/items
+  output: images/items
+
+content:
+  - name: items
+    label: Pieces & past work
+    type: file
+    path: data/items.json
+    format: json
+    list: true
+    fields:
+      - name: code
+        label: Code (BS-001 statue, AM-001 amulet, FS-001 Feng Shui, W-001 past work)
+        type: string
+        required: true
+      - name: title
+        label: Name in English letters (for Thai pieces, the romanised name, e.g. Phra Buddha Chinnarat)
+        type: string
+      - name: title_zh
+        label: Chinese name (optional)
+        type: string
+      - name: title_th
+        label: Thai name in Thai script (optional)
+        type: string
+      - name: aka
+        label: Other spellings, for search only (optional, e.g. Jinaraj, Chinaraj)
+        type: string
+      - name: category
+        label: Category
+        type: select
+        options:
+          values:
+            - name: statues
+              label: Buddha statue
+            - name: amulets
+              label: Amulet
+            - name: fengshui
+              label: Feng Shui piece
+            - name: work
+              label: Past work (gallery only)
+      - name: status
+        label: Status
+        type: select
+        options:
+          values:
+            - name: available
+              label: Available (shown in Collection)
+            - name: reserved
+              label: Reserved (shown with a tag)
+            - name: sold
+              label: Sold (moves to Gallery)
+            - name: done
+              label: Done (past work)
+      - name: size
+        label: Size
+        type: string
+      - name: material
+        label: Material
+        type: string
+      - name: image
+        label: Photo
+        type: image
+      - name: desc
+        label: Description (what it is and how it's honoured; no promised results)
+        type: text
+      - name: material_zh
+        label: Material in Chinese (optional; Chinese pages use English if blank)
+        type: string
+      - name: desc_zh
+        label: Description in Chinese (optional; Chinese pages use English if blank)
+        type: text
