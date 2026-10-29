@@ -6,372 +6,70 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Collection | Craftsman Artifacts</title>
     <link rel="stylesheet" href="../style.css">
-
-    <style>
-        /* --- 1. HEADER SECTION --- */
-        .header-section {
-            background-color: #1a1a1a;
-            color: #fff;
-            padding: 60px 0; 
-            margin-bottom: 40px;
-        }
-
-        .collection-header {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 0.8fr 1.2fr; 
-            gap: 40px;
-            align-items: center; 
-        }
-
-        .header-title h1 {
-            font-size: 3rem; 
-            margin: 0;
-            line-height: 1;
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-        }
-
-        .header-desc p {
-            font-size: 1rem;
-            color: #ccc;
-            margin: 0;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        /* --- 2. FILTERS --- */
-        .filter-bar {
-            padding: 20px 20px;
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 1px solid #e0e0e0; 
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .filter-btn {
-            background: none;
-            border: none;
-            font-family: 'Lato', sans-serif;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            padding: 10px 25px;
-            color: #888;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .filter-btn::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 5px;
-            left: 50%;
-            background: var(--gold);
-            transition: 0.3s;
-            transform: translateX(-50%);
-        }
-
-        .filter-btn:hover { color: #000; }
-        .filter-btn.active { color: #000; font-weight: bold; }
-        .filter-btn.active::after { width: 40px; } 
-
-        /* --- 3. PRODUCT GRID --- */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
-            gap: 30px; 
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-bottom: 100px;
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-        
-        .product-item {
-            /* WARMER CARD COLOR FIX */
-            background-color: #fdfbf7; /* Subtle Warm Cream */
-            border: 1px solid #e8e6e1; /* Soft border */
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-            border-radius: 4px;
-            overflow: hidden;
-            animation: fadeIn 0.5s forwards;
-        }
-
-        .product-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-            border-color: var(--gold); /* Gold highlight on hover */
-        }
-        
-        .product-item.hide { display: none; }
-        
-        /* Image inside the card */
-        .product-item img {
-            width: 100%;
-            height: 300px;
-            object-fit: contain; /* Keeps entire statue visible */
-            background: #fff;   /* White bg behind the image itself */
-            border-bottom: 1px solid #eee;
-        }
-        
-        .card-info {
-            padding: 20px;
-            text-align: center;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* --- 4. MODAL (POPUP) --- */
-        .modal { 
-            display: none; 
-            position: fixed; 
-            z-index: 2000; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgba(0,0,0,0.9); /* Darker background */
-            backdrop-filter: blur(4px);
-        }
-        
-        .modal-content { 
-            background-color: #fff; 
-            margin: 5% auto; 
-            padding: 0; 
-            border: none; 
-            width: 90%; 
-            max-width: 1000px; 
-            display: flex; 
-            position: relative; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            min-height: 500px;
-        }
-        
-        .modal-img { 
-            width: 50%; 
-            object-fit: contain; 
-            background: #faf9f6; 
-        }
-        
-        .modal-details { 
-            width: 50%; 
-            padding: 60px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center;
-            overflow-y: auto; /* Allow scrolling inside details if text is long */
-        }
-        
-        .close { 
-            position: absolute; 
-            top: 20px; 
-            right: 30px; 
-            font-size: 40px; 
-            color: #333; 
-            cursor: pointer; 
-            z-index: 10; 
-        }
-
-        /* --- 5. MOBILE OPTIMIZATIONS --- */
-        @media (max-width: 768px) {
-            /* Header */
-            .collection-header { grid-template-columns: 1fr; gap: 20px; text-align: center; }
-            .header-title h1 { font-size: 2.2rem; word-wrap: break-word; }
-            .header-section { padding: 40px 0; }
-            
-            /* Modal Mobile */
-            .modal-content { 
-                flex-direction: column; 
-                margin: 0; 
-                width: 100%; 
-                height: 100%; /* Full screen on phone */
-                border-radius: 0; 
-            }
-            .modal-img { 
-                width: 100%; 
-                height: 40vh; /* Image takes top 40% */
-                background: #fff;
-            }
-            .modal-details { 
-                width: 100%; 
-                height: 60vh; /* Details take bottom 60% */
-                padding: 30px 20px; 
-                box-sizing: border-box;
-            }
-            
-            /* Prevent Text Protruding */
-            #modalTitle { 
-                font-size: 1.8rem; 
-                line-height: 1.2;
-                word-wrap: break-word; /* Crucial fix */
-            }
-        }
-    </style>
 </head>
 <body>
 
-    <header>
+    <header class="site-header">
         <nav>
-            <a href="../" class="logo">Craftsman Artifacts</a>
+            <a href="../" class="logo">Craftsman Artifacts <span class="cn">匠心法物</span></a>
             <div class="nav-links">
                 <a href="../">Home</a>
                 <a href="../services/">Services</a>
-                <a href="./" class="active">Collection</a>
+                <a href="../products/" class="active" aria-current="page">Collection</a>
                 <a href="../gallery/">Gallery</a>
                 <a href="../contact/">Contact</a>
             </div>
         </nav>
     </header>
 
-    <div class="header-section">
-        <div class="collection-header">
-            <div class="header-title">
-                <h1>Our<br>Collection</h1>
-            </div>
-            <div class="header-desc">
-                <p>
-                    Each piece is chosen for its craftsmanship and consecrated with care.
-                    <br><br>
-                    When you take a piece home, our Master consecrates it, brings it to you, helps place it in a suitable
-                    Feng Shui spot, and consecrates it again there. If a piece speaks to you, ask us about it.
-                    We'll share its story and help you decide if it suits your space.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="filter-bar">
-        <button class="filter-btn active" data-cat="all" onclick="filterSelection('all')">View All</button>
-        <button class="filter-btn" data-cat="statues" onclick="filterSelection('statues')">Buddha Statues</button>
-        <button class="filter-btn" data-cat="amulets" onclick="filterSelection('amulets')">Amulets</button>
-        <button class="filter-btn" data-cat="fengshui" onclick="filterSelection('fengshui')">Feng Shui Pieces</button>
-    </div>
-
-    <div class="product-grid" id="grid-container"></div>
-
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modalImg" class="modal-img" src="" alt="">
-            <div class="modal-details">
-                <h2 id="modalTitle" style="font-family:'Playfair Display'; font-size: 2.2rem; margin-top:0; color:#1a1a1a;">Title</h2>
-                <p id="modalCode" style="color:var(--gold); font-size: 1rem; letter-spacing: 1px; margin: 10px 0 30px 0;"></p>
-                
-                <div style="font-size: 0.95rem; color: #555; line-height: 1.8;">
-                    <p style="margin-bottom: 5px;"><strong>Dimensions:</strong> <span id="modalSize"></span></p>
-                    <p style="margin-bottom: 20px;"><strong>Material:</strong> <span id="modalMaterial"></span></p>
-                    <p id="modalDesc"></p>
+    <main>
+        <section class="page-head">
+            <div class="wrap">
+                <p class="couplet" lang="zh" aria-label="法物结缘"><span aria-hidden="true">法</span><span aria-hidden="true">物</span><span aria-hidden="true">结</span><span aria-hidden="true">缘</span></p>
+                <div>
+                    <h1>Our collection</h1>
+                    <p>Each piece is chosen for its craftsmanship and consecrated with care. When you take one home, our Master consecrates it, brings it to you, helps place it in a suitable Feng Shui spot, and consecrates it again there.</p>
+                    <p>If a piece speaks to you, ask us about it. We'll share its story and help you decide if it suits your space.</p>
                 </div>
-
-                <a id="modalBuyBtn" class="btn" style="margin-top: 40px; text-align:center;">Ask about this piece</a>
             </div>
+        </section>
+
+        <div class="wrap">
+            <div class="tools" role="group" aria-label="Filter pieces">
+                <button class="chip" data-filter="all" aria-pressed="true">All pieces</button>
+                <button class="chip" data-filter="statues" aria-pressed="false">Buddha statues</button>
+                <button class="chip" data-filter="amulets" aria-pressed="false">Amulets</button>
+                <button class="chip" data-filter="fengshui" aria-pressed="false">Feng Shui pieces</button>
+                <input class="search" type="search" id="search" placeholder="Search by name or code" aria-label="Search pieces">
+            </div>
+            <div class="grid" id="grid"></div>
         </div>
-    </div>
+
+        <dialog class="detail" id="detail" aria-labelledby="detail-title">
+            <div class="detail-body">
+                <img id="detail-img" src="" alt="">
+                <div class="detail-text">
+                    <button class="close" type="button" aria-label="Close">&times;</button>
+                    <h2 id="detail-title"></h2>
+                    <p class="code" id="detail-code"></p>
+                    <dl id="detail-facts"></dl>
+                    <p id="detail-desc"></p>
+                    <a class="btn" id="detail-btn"></a>
+                </div>
+            </div>
+        </dialog>
+
+    </main>
 
     <footer>
-        <p>&copy; 2026 Craftsman Artifacts Singapore</p>
+        <div class="wrap">
+            <span>&copy; 2026 Craftsman Artifacts, Singapore</span>
+            <span>Replies <span data-hours>9am – 6pm</span> · <a data-wa="Hi, I was referred to Craftsman Artifacts and would like to find out more.">Have a chat</a></span>
+        </div>
     </footer>
 
     <script src="../site.js"></script>
-    <script>
-        // 1. LOAD ITEMS (sold pieces and past work are shown in the Gallery instead)
-        const SHOP_CATEGORIES = ["statues", "amulets", "fengshui"];
-        const esc = t => String(t || "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-
-        loadItems()
-            .then(data => {
-                const container = document.getElementById('grid-container');
-                const items = data.filter(i => SHOP_CATEGORIES.includes(i.category) && i.status !== "sold");
-
-                if (items.length === 0) {
-                    container.innerHTML = '<p style="text-align:center; color:#999;">New pieces coming soon. Message us to ask what is available.</p>';
-                    return;
-                }
-
-                items.forEach(item => {
-                    const reserved = item.status === "reserved" ? '<span class="price">Reserved</span>' : '';
-                    container.innerHTML += `
-                        <div class="card product-item ${esc(item.category)}"
-                             onclick="openModal(this)"
-                             data-code="${esc(item.code)}"
-                             data-title="${esc(item.title)}"
-                             data-size="${esc(item.size)}"
-                             data-material="${esc(item.material)}"
-                             data-img="${esc(asset(item.image))}"
-                             data-desc="${esc(item.desc)}">
-                            <img src="${esc(asset(item.image))}" alt="${esc(item.title)}">
-                            <div class="card-info">
-                                <span class="card-title">${esc(item.title)}</span>
-                                ${reserved}
-                            </div>
-                        </div>`;
-                });
-            })
-            .catch(error => console.error('Error loading items:', error));
-
-        // 2. FILTER LOGIC
-        function filterSelection(category) {
-            const items = document.getElementsByClassName("product-item");
-            const btns = document.getElementsByClassName("filter-btn");
-            
-            for (let btn of btns) {
-                btn.classList.toggle("active", btn.getAttribute("data-cat") === category);
-            }
-            
-            for (let i = 0; i < items.length; i++) {
-                if (category === "all") items[i].classList.remove("hide");
-                else {
-                    if (items[i].classList.contains(category)) items[i].classList.remove("hide");
-                    else items[i].classList.add("hide");
-                }
-            }
-        }
-
-        // 3. MODAL LOGIC
-        const modal = document.getElementById("productModal");
-
-        function openModal(element) {
-            document.getElementById("modalTitle").innerText = element.getAttribute("data-title");
-            document.getElementById("modalSize").innerText = element.getAttribute("data-size");
-            document.getElementById("modalMaterial").innerText = element.getAttribute("data-material");
-            document.getElementById("modalCode").innerText = "Piece " + element.getAttribute("data-code");
-            document.getElementById("modalDesc").innerText = element.getAttribute("data-desc");
-            document.getElementById("modalImg").src = element.getAttribute("data-img");
-            
-            const btn = document.getElementById("modalBuyBtn");
-            btn.setAttribute("data-wa", `Hi, I'm interested in piece ${element.getAttribute("data-code")} – ${element.getAttribute("data-title")}. Could you tell me more?`);
-            wireChatLinks(btn.parentElement);
-
-            modal.style.display = "block";
-            
-            // FIX: LOCK BACKGROUND SCROLLING COMPLETELY
-            document.body.style.overflow = "hidden";
-            document.documentElement.style.overflow = "hidden";
-        }
-
-        function closeModal() {
-            modal.style.display = "none";
-            
-            // FIX: RESTORE SCROLLING
-            document.body.style.overflow = "auto";
-            document.documentElement.style.overflow = "auto";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-    </script>
+    <script src="../collection.js"></script>
+    <script>showItems("collection");</script>
 </body>
 </html>

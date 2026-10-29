@@ -6,98 +6,14 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Home | Craftsman Artifacts</title>
     <link rel="stylesheet" href="style.css">
-    
-    <style>
-        /* 1. Typography Specifics */
-        .cn-text { 
-            font-family: "Songti SC", "SimSun", serif; 
-            font-weight: normal; 
-            letter-spacing: 2px; 
-        }
-
-        /* 2. The White "Content Card" Layout */
-        .home-card {
-            background: #ffffff;
-            max-width: 1000px;
-            /* Negative top margin pulls the card UP over the banner */
-            margin: -60px auto 80px auto; 
-            padding: 70px 80px;
-            border-radius: 8px;
-            /* Soft shadow makes it 'float' */
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06); 
-            position: relative;
-            z-index: 10;
-        }
-
-        /* 3. Intro Section Styling */
-        .intro-section { margin-bottom: 60px; }
-        
-        .section-title {
-            font-size: 2.2rem;
-            color: #1a1a1a;
-            margin-bottom: 10px;
-            line-height: 1.2;
-        }
-
-        .section-subtitle {
-            font-size: 1.5rem;
-            color: var(--gold);
-            display: block;
-            margin-bottom: 30px;
-        }
-
-        .intro-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555;
-            max-width: 800px;
-            /* No margin: 0 auto; needed because parent handles layout */
-        }
-
-        /* 4. The 3-Column Pillars Grid */
-        .pillars-grid {
-            display: grid;
-            /* Creates 3 equal columns */
-            grid-template-columns: 1fr 1fr 1fr; 
-            gap: 50px;
-            padding-top: 60px;
-            border-top: 1px solid #f0f0f0; /* Subtle divider line */
-        }
-
-        .pillar-item h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--gold);
-            line-height: 1.4;
-        }
-        
-        .pillar-item span.cn-text {
-            display: block;
-            font-size: 0.9rem;
-            color: #999;
-            margin-bottom: 15px;
-        }
-
-        .pillar-item p {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .home-card { margin: 0; padding: 40px 20px; border-radius: 0; }
-            .pillars-grid { grid-template-columns: 1fr; gap: 40px; }
-        }
-    </style>
 </head>
 <body>
 
-    <header>
+    <header class="site-header">
         <nav>
-            <a href="./" class="logo">Craftsman Artifacts</a>
+            <a href="./" class="logo">Craftsman Artifacts <span class="cn">匠心法物</span></a>
             <div class="nav-links">
-                <a href="./" class="active">Home</a>
+                <a href="" class="active" aria-current="page">Home</a>
                 <a href="services/">Services</a>
                 <a href="products/">Collection</a>
                 <a href="gallery/">Gallery</a>
@@ -106,90 +22,93 @@
         </nav>
     </header>
 
-    <div class="carousel-container">
-        <div class="slide active" style="background-image: url('images/banners/altar16x9.jpeg');"></div>
-        <div class="slide" style="background-image: url('images/banners/charcoal1.jpeg');"></div>
-        
-        <div class="overlay">
-            <div class="hero-text">
-                <h2 class="cn-text" style="color:var(--gold); margin:0; font-size: 2rem;">平安和顺</h2>
-                <h1 style="margin-top:10px;">Bringing Harmony Into Your Space</h1>
-                <p>Traditional Buddhist blessings, consecrated pieces and Feng Shui guidance in Singapore</p>
-                <a class="btn" data-wa="Hi, I was referred to Craftsman Artifacts and would like to find out more.">Have a chat</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container" style="padding: 0;"> <div class="home-card">
-            
-            <div class="intro-section">
-                <h2 class="section-title">Welcome</h2>
-                <span class="cn-text section-subtitle">纳福迎祥</span>
-                
-                <div class="intro-text">
-                    <p style="margin-bottom: 20px;">
-                        Sometimes life feels stuck: a run of bad luck, a home that no longer feels settled, or simply a wish for a fresh start. For more than 20 years, our Master has helped people through traditional Buddhist practice, consecrating sacred pieces, performing blessings and cleansings, and offering Feng Shui guidance for homes and workplaces.
-                    </p>
-                    <p>
-                        Our practice is rooted in Buddhism, and our door is open to everyone, whatever your background or beliefs.
-                    </p>
+    <main>
+        <section class="hero">
+            <div class="wrap">
+                <div class="text">
+                    <h1>Bringing harmony into your space</h1>
+                    <p class="lead">Traditional Buddhist blessings, consecrated pieces and Feng Shui guidance in Singapore, from a practice of more than 20 years.</p>
+                    <a class="btn" data-wa="Hi, I was referred to Craftsman Artifacts and would like to find out more.">Have a chat</a>
                 </div>
-
-                <div class="services-teaser">
-                    <a href="services/#consecration">Consecration 开光</a>
-                    <a href="services/#blessings">Blessings 加持</a>
-                    <a href="services/#fengshui">Feng Shui 风水</a>
-                    <a href="services/#spirit-clearing">Spirit Clearing 驱邪</a>
-                    <a href="services/#cleansing">Cleansing 净化</a>
-                </div>
+                <p class="couplet" lang="zh" aria-label="平安吉祥"><span aria-hidden="true">平</span><span aria-hidden="true">安</span><span aria-hidden="true">吉</span><span aria-hidden="true">祥</span></p>
+                <div class="arch"><img src="images/banners/altar16x9.jpeg" alt="A family altar with gilded Buddha statues and lotus lamps"></div>
             </div>
+        </section>
 
-            <div class="pillars-grid">
-                
-                <div class="pillar-item">
-                    <h3>Consecrated <br><span class="cn-text">开光加持</span></h3>
+        <section class="section section-paper">
+            <div class="narrow">
+                <h2>Welcome</h2>
+                <p>Sometimes life feels stuck: a run of bad luck, a home that no longer feels settled, or simply a wish for a fresh start. For more than 20 years, our Master has helped people through traditional Buddhist practice, consecrating sacred pieces, performing blessings and cleansings, and offering Feng Shui guidance for homes and workplaces.</p>
+                <p>Our practice is rooted in Buddhism, and our door is open to everyone, whatever your background or beliefs.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="narrow">
+                <div class="section-intro">
+                    <h2>What we do</h2>
+                </div>
+                <ul class="service-list">
+                    <li><a href="services/#consecration">
+                        <span class="seal" aria-hidden="true">开</span>
+                        <div><h3>Consecration <span class="cn">开光</span></h3><p>Inviting a sacred presence into a statue or amulet.</p></div>
+                    </a></li>
+                    <li><a href="services/#blessings">
+                        <span class="seal" aria-hidden="true">福</span>
+                        <div><h3>Blessings <span class="cn">加持祈福</span></h3><p>Prayers for a person, family, home or new beginning.</p></div>
+                    </a></li>
+                    <li><a href="services/#fengshui">
+                        <span class="seal" aria-hidden="true">风</span>
+                        <div><h3>Feng Shui <span class="cn">风水</span></h3><p>Guidance on the layout and energy of your home or workplace.</p></div>
+                    </a></li>
+                    <li><a href="services/#spirit-clearing">
+                        <span class="seal" aria-hidden="true">驱</span>
+                        <div><h3>Spirit Clearing <span class="cn">驱邪</span></h3><p>Clearing unsettled energy from a person or a space.</p></div>
+                    </a></li>
+                    <li><a href="services/#cleansing">
+                        <span class="seal" aria-hidden="true">净</span>
+                        <div><h3>Cleansing <span class="cn">净化</span></h3><p>Cleansing stagnant energy from a home, office or object.</p></div>
+                    </a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section section-paper">
+            <div class="wrap pillars">
+                <div>
+                    <h3>Consecrated</h3><span class="cn">开光加持</span>
                     <p>Every piece is consecrated by our Master, then placed in your home and consecrated again in its new spot.</p>
                 </div>
-
-                <div class="pillar-item">
-                    <h3>Crafted with Care <br><span class="cn-text">匠心独运</span></h3>
+                <div>
+                    <h3>Crafted with care</h3><span class="cn">匠心独运</span>
                     <p>Pieces chosen for their craftsmanship and the care of the artisans who made them.</p>
                 </div>
-
-                <div class="pillar-item">
-                    <h3>Based in Singapore <br><span class="cn-text">本地服务</span></h3>
+                <div>
+                    <h3>Based in Singapore</h3><span class="cn">本地服务</span>
                     <p>We meet in person, visit homes locally, and take time to understand each situation.</p>
                 </div>
-
             </div>
+        </section>
 
-            <p style="text-align:center; margin-top:60px; font-size:1.1rem;">
-                Every situation is different. Tell us yours; we're happy to listen.<br><br>
+        <section class="chat-band">
+            <div class="wrap">
+                <div>
+                    <h2>Every situation is different</h2>
+                    <p>Tell us yours. We're happy to listen.</p>
+                </div>
                 <a class="btn" data-wa="Hi, I was referred to Craftsman Artifacts and would like to find out more.">Have a chat</a>
-            </p>
+            </div>
+        </section>
 
-        </div>
-    </div>
+    </main>
 
     <footer>
-        <p>&copy; 2026 Craftsman Artifacts Singapore</p>
+        <div class="wrap">
+            <span>&copy; 2026 Craftsman Artifacts, Singapore</span>
+            <span>Replies <span data-hours>9am – 6pm</span> · <a data-wa="Hi, I was referred to Craftsman Artifacts and would like to find out more.">Have a chat</a></span>
+        </div>
     </footer>
 
     <script src="site.js"></script>
-    <script>
-        let slideIndex = 0;
-        const slides = document.querySelectorAll('.slide');
-        function showSlides() {
-            // Check if slides exist to prevent errors
-            if(slides.length > 0) {
-                slides.forEach(slide => slide.classList.remove('active'));
-                slideIndex++;
-                if (slideIndex > slides.length) { slideIndex = 1 }
-                slides[slideIndex - 1].classList.add('active');
-                setTimeout(showSlides, 5000); 
-            }
-        }
-        showSlides();
-    </script>
 </body>
 </html>

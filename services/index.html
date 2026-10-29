@@ -9,12 +9,12 @@
 </head>
 <body>
 
-    <header>
+    <header class="site-header">
         <nav>
-            <a href="../" class="logo">Craftsman Artifacts</a>
+            <a href="../" class="logo">Craftsman Artifacts <span class="cn">匠心法物</span></a>
             <div class="nav-links">
                 <a href="../">Home</a>
-                <a href="./" class="active">Services</a>
+                <a href="../services/" class="active" aria-current="page">Services</a>
                 <a href="../products/">Collection</a>
                 <a href="../gallery/">Gallery</a>
                 <a href="../contact/">Contact</a>
@@ -22,73 +22,87 @@
         </nav>
     </header>
 
-    <div class="page-hero">
-        <h1>Our Services</h1>
-        <span class="cn-text">佛法护持 · 平安和顺</span>
-        <p>Our services draw on traditional Buddhist practice, carried out with care and respect. Everyone is welcome, whatever their faith or background. Because every person and every space is different, we always start with a conversation.</p>
-    </div>
+    <main>
+        <section class="page-head">
+            <div class="wrap">
+                <p class="couplet" lang="zh" aria-label="佛法护持"><span aria-hidden="true">佛</span><span aria-hidden="true">法</span><span aria-hidden="true">护</span><span aria-hidden="true">持</span></p>
+                <div>
+                    <h1>Our services</h1>
+                    <p>Our services draw on traditional Buddhist practice, carried out with care and respect. Everyone is welcome, whatever their faith or background. Because every person and every space is different, we always start with a conversation.</p>
+                </div>
+            </div>
+        </section>
 
-    <div class="section-wrap">
-
-        <div class="service-block" id="consecration">
-            <h2>Consecration <span class="cn-text">开光</span></h2>
-            <h4>What it is</h4>
-            <p>A traditional ritual that invites the presence of the Buddha or deity into a statue, amulet or sacred object, so it can be honoured as more than a decoration.</p>
-            <h4>Who it suits</h4>
-            <p>Anyone bringing a new statue or amulet home, or who has a piece that has never been consecrated.</p>
-            <h4>How it's done</h4>
-            <p>Our Master first consecrates the piece. We then bring it to your home, help place it in a suitable Feng Shui spot, and consecrate it again in its new place. You can bring your own piece to us, or choose one from our Collection.</p>
-            <a class="btn" data-wa="Hi, I'd like to find out more about a consecration.">Ask about a consecration</a>
+        <div class="wrap">
+                <section class="service" id="consecration">
+                    <span class="seal" aria-hidden="true">开</span>
+                    <div>
+                        <h2>Consecration <span class="cn">开光</span></h2>
+                        <dl>
+                            <dt>What it is</dt><dd>A traditional ritual that invites the presence of the Buddha or deity into a statue, amulet or sacred object, so it can be honoured as more than a decoration.</dd>
+                            <dt>Who it suits</dt><dd>Anyone bringing a new statue or amulet home, or who has a piece that has never been consecrated.</dd>
+                            <dt>How it's done</dt><dd>Our Master first consecrates the piece. We then bring it to your home, help place it in a suitable Feng Shui spot, and consecrate it again in its new place. You can bring your own piece to us, or choose one from our Collection.</dd>
+                        </dl>
+                        <a class="btn" data-wa="Hi, I'd like to find out more about a consecration.">Ask about a consecration</a>
+                    </div>
+                </section>
+                <section class="service" id="blessings">
+                    <span class="seal" aria-hidden="true">福</span>
+                    <div>
+                        <h2>Blessings <span class="cn">加持祈福</span></h2>
+                        <dl>
+                            <dt>What it is</dt><dd>Prayers and chanting offered for a person, family, home or new beginning: a new house, a new business, a birthday or a difficult season.</dd>
+                            <dt>Who it suits</dt><dd>Anyone marking a milestone, or wanting support through a hard time.</dd>
+                            <dt>How it's done</dt><dd>We first talk about what the blessing is for. It can take place at your home, at your premises, or with us.</dd>
+                        </dl>
+                        <a class="btn" data-wa="Hi, I'd like to find out more about a blessing.">Ask about a blessing</a>
+                    </div>
+                </section>
+                <section class="service" id="fengshui">
+                    <span class="seal" aria-hidden="true">风</span>
+                    <div>
+                        <h2>Feng Shui <span class="cn">风水</span></h2>
+                        <dl>
+                            <dt>What it is</dt><dd>A consultation on the layout and energy of your home or workplace, guided by traditional Feng Shui principles.</dd>
+                            <dt>Who it suits</dt><dd>People moving house, renovating, opening a business, or feeling that their space no longer sits right.</dd>
+                            <dt>How it's done</dt><dd>We ask about the space and what you hope for, then arrange a visit. You receive guidance on arrangement and, where it helps, suitable pieces.</dd>
+                        </dl>
+                        <a class="btn" data-wa="Hi, I'd like to find out more about a Feng Shui consultation.">Ask about Feng Shui</a>
+                    </div>
+                </section>
+                <section class="service" id="spirit-clearing">
+                    <span class="seal" aria-hidden="true">驱</span>
+                    <div>
+                        <h2>Spirit Clearing <span class="cn">驱邪</span></h2>
+                        <dl>
+                            <dt>What it is</dt><dd>A traditional ritual to clear unsettled or troubling energy from a person or a space.</dd>
+                            <dt>Who it suits</dt><dd>People who feel a space or a situation has become heavy or disturbed, and want it addressed through traditional practice.</dd>
+                            <dt>How it's done</dt><dd>This always begins with a private, unhurried conversation, so our Master understands the situation before anything is arranged.</dd>
+                        </dl>
+                        <a class="btn" data-wa="Hi, I'd like to speak privately about a spirit clearing.">Talk to us privately</a>
+                    </div>
+                </section>
+                <section class="service" id="cleansing">
+                    <span class="seal" aria-hidden="true">净</span>
+                    <div>
+                        <h2>Cleansing <span class="cn">净化</span></h2>
+                        <dl>
+                            <dt>What it is</dt><dd>A ritual to cleanse stagnant energy (煞气) from a home, office or object and restore a sense of peace (平安).</dd>
+                            <dt>Who it suits</dt><dd>People moving into a new or pre-owned home, coming out of a difficult period, or simply wanting a fresh start.</dd>
+                            <dt>How it's done</dt><dd>Usually performed on-site, with guidance afterwards on keeping the space settled.</dd>
+                        </dl>
+                        <a class="btn" data-wa="Hi, I'd like to find out more about a cleansing.">Ask about a cleansing</a>
+                    </div>
+                </section>
         </div>
 
-        <div class="service-block" id="blessings">
-            <h2>Blessings <span class="cn-text">加持祈福</span></h2>
-            <h4>What it is</h4>
-            <p>Prayers and chanting offered for a person, family, home or new beginning: a new house, a new business, a birthday or a difficult season.</p>
-            <h4>Who it suits</h4>
-            <p>Anyone marking a milestone, or wanting support through a hard time.</p>
-            <h4>How it's done</h4>
-            <p>We first talk about what the blessing is for. It can take place at your home, at your premises, or with us.</p>
-            <a class="btn" data-wa="Hi, I'd like to find out more about a blessing.">Ask about a blessing</a>
-        </div>
-
-        <div class="service-block" id="fengshui">
-            <h2>Feng Shui <span class="cn-text">风水</span></h2>
-            <h4>What it is</h4>
-            <p>A consultation on the layout and energy of your home or workplace, guided by traditional Feng Shui principles.</p>
-            <h4>Who it suits</h4>
-            <p>People moving house, renovating, opening a business, or feeling that their space no longer sits right.</p>
-            <h4>How it's done</h4>
-            <p>We ask about the space and what you hope for, then arrange a visit. You receive guidance on arrangement and, where it helps, suitable pieces.</p>
-            <a class="btn" data-wa="Hi, I'd like to find out more about a Feng Shui consultation.">Ask about Feng Shui</a>
-        </div>
-
-        <div class="service-block" id="spirit-clearing">
-            <h2>Spirit Clearing <span class="cn-text">驱邪</span></h2>
-            <h4>What it is</h4>
-            <p>A traditional ritual to clear unsettled or troubling energy from a person or a space.</p>
-            <h4>Who it suits</h4>
-            <p>People who feel a space or a situation has become heavy or disturbed, and want it addressed through traditional practice.</p>
-            <h4>How it's done</h4>
-            <p>This always begins with a private, unhurried conversation, so our Master understands the situation before anything is arranged.</p>
-            <a class="btn" data-wa="Hi, I'd like to speak privately about a spirit clearing.">Talk to us privately</a>
-        </div>
-
-        <div class="service-block" id="cleansing">
-            <h2>Cleansing <span class="cn-text">净化</span></h2>
-            <h4>What it is</h4>
-            <p>A ritual to cleanse stagnant energy (煞气) from a home, office or object and restore a sense of peace (平安).</p>
-            <h4>Who it suits</h4>
-            <p>People moving into a new or pre-owned home, coming out of a difficult period, or simply wanting a fresh start.</p>
-            <h4>How it's done</h4>
-            <p>Usually performed on-site, with guidance afterwards on keeping the space settled.</p>
-            <a class="btn" data-wa="Hi, I'd like to find out more about a cleansing.">Ask about a cleansing</a>
-        </div>
-
-    </div>
+    </main>
 
     <footer>
-        <p>&copy; 2026 Craftsman Artifacts Singapore</p>
+        <div class="wrap">
+            <span>&copy; 2026 Craftsman Artifacts, Singapore</span>
+            <span>Replies <span data-hours>9am – 6pm</span> · <a data-wa="Hi, I was referred to Craftsman Artifacts and would like to find out more.">Have a chat</a></span>
+        </div>
     </footer>
 
     <script src="../site.js"></script>
