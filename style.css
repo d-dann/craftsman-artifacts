@@ -577,6 +577,10 @@ footer a { color: #fff; }
 .page-head .btn-quiet { color: var(--ink); }
 .page-head .contact-card { box-shadow: 0 20px 40px -28px rgba(29, 41, 36, 0.45); }
 
+/* Inner page couplet sits on the right, so titles keep the shared left edge */
+.page-head .wrap { justify-content: space-between; align-items: center; }
+.page-head .wrap > .couplet { order: 2; font-size: clamp(2.2rem, 4vw, 3rem); margin-right: 4%; }
+
 /* Services: image slot beside each service, alternating sides */
 .service {
     display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: center;
@@ -638,6 +642,8 @@ footer a { color: #fff; }
     .hero .arch { max-width: 320px; }
 
     .page-head { padding: 36px 0 28px; }
+    .page-head .wrap { align-items: flex-start; }
+    .page-head .wrap > .couplet { order: 0; font-size: 1.15rem; margin-right: 0; }
 
     /* Services: no-photo panels hidden on phones (the small seal shows instead) */
     .service { display: block; padding: 36px 0; }
