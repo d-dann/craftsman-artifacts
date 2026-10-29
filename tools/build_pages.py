@@ -316,7 +316,6 @@ def build(lang):
             </section>''' for sid, seal, name, what, who, how, wa, short in t["services"])
     services = f'''        <section class="page-head">
             <div class="wrap">
-                {couplet(COUPLETS["services/"])}
                 <div>
                     <h1>{t["services_h1"]}</h1>
                     <p>{t["services_intro"]}</p>
@@ -373,7 +372,6 @@ def build(lang):
     coll_intro = "\n".join(f"                    <p>{p}</p>" for p in t["coll_intro"])
     products = f'''        <section class="page-head">
             <div class="wrap">
-                {couplet(COUPLETS["products/"])}
                 <div>
                     <h1>{t["coll_h1"]}</h1>
 {coll_intro}
@@ -389,7 +387,6 @@ def build(lang):
 {dialog}'''
     gallery = f'''        <section class="page-head">
             <div class="wrap">
-                {couplet(COUPLETS["gallery/"])}
                 <div>
                     <h1>{t["gal_h1"]}</h1>
                     <p>{t["gal_intro"]}</p>
