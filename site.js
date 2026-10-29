@@ -49,16 +49,42 @@ function loadItems() {
     return fetch(ROOT + "data/items.json").then(r => r.json());
 }
 
-// Floating "Have a chat" button on every page.
+// Floating "Have a chat" button on every page except Contact (which has its own buttons).
 function addFloatingChat() {
+    if (document.body.dataset.page === "contact") return;
+    document.body.classList.add("has-chat-bar");
     const a = document.createElement("a");
     a.className = "float-chat";
     a.setAttribute("data-wa", "Hi, I was referred to Craftsman Artifacts and would like to find out more.");
     a.innerHTML = "Have a chat";
     document.body.appendChild(a);
+
+    // Wait until the page's own first chat button has scrolled away, so two never show at once.
+    const first = document.querySelector("main [data-wa]");
+    if (first && "IntersectionObserver" in window) {
+        a.classList.add("waiting");
+        new IntersectionObserver(([entry]) => {
+            a.classList.toggle("waiting", entry.isIntersecting || entry.boundingClientRect.top > 0);
+        }).observe(first);
+    }
+}
+
+// On phones, tuck the header away while scrolling down and bring it back on scroll up.
+function tuckHeaderOnScroll() {
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+    const phone = window.matchMedia("(max-width: 860px)");
+    let lastY = window.scrollY;
+    window.addEventListener("scroll", () => {
+        const y = window.scrollY;
+        const down = y > lastY && y > 120;
+        header.classList.toggle("tucked", phone.matches && down);
+        lastY = y;
+    }, { passive: true });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     addFloatingChat();
     wireChatLinks();
+    tuckHeaderOnScroll();
 });

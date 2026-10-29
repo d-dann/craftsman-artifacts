@@ -83,9 +83,12 @@ function showItems(mode) {
             btn.setAttribute("data-wa", `Hi, I'm interested in piece ${i.code} – ${i.title}. Could you tell me more?`);
         }
         wireChatLinks(dialog);
+        dialog.querySelector(".detail-body").scrollTop = 0;
+        document.documentElement.style.overflow = "hidden";
         dialog.showModal();
     }
 
+    dialog.addEventListener("close", () => { document.documentElement.style.overflow = ""; });
     dialog.querySelector(".close").addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", e => { if (e.target === dialog) dialog.close(); });
 }

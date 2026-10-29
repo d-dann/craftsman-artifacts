@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="robots" content="noindex, nofollow">
     <title>Collection | Craftsman Artifacts</title>
     <link rel="stylesheet" href="../style.css">
 </head>
-<body>
+<body data-page="collection">
 
     <header class="site-header">
         <nav>
@@ -35,11 +35,13 @@
         </section>
 
         <div class="wrap">
-            <div class="tools" role="group" aria-label="Filter pieces">
-                <button class="chip" data-filter="all" aria-pressed="true">All pieces</button>
-                <button class="chip" data-filter="statues" aria-pressed="false">Buddha statues</button>
-                <button class="chip" data-filter="amulets" aria-pressed="false">Amulets</button>
-                <button class="chip" data-filter="fengshui" aria-pressed="false">Feng Shui pieces</button>
+            <div class="tools">
+                <div class="chips" role="group" aria-label="Filter pieces">
+                    <button class="chip" data-filter="all" aria-pressed="true">All pieces</button>
+                    <button class="chip" data-filter="statues" aria-pressed="false">Buddha statues</button>
+                    <button class="chip" data-filter="amulets" aria-pressed="false">Amulets</button>
+                    <button class="chip" data-filter="fengshui" aria-pressed="false">Feng Shui pieces</button>
+                </div>
                 <input class="search" type="search" id="search" placeholder="Search by name or code" aria-label="Search pieces">
             </div>
             <div class="grid" id="grid"></div>
