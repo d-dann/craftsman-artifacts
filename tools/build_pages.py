@@ -183,6 +183,13 @@ T = {
 
 COUPLETS = {"": "平安吉祥", "services/": "佛法护持", "products/": "法物结缘", "gallery/": "缘起缘续"}
 
+# Real photos for each service, shown beside it on the Services page.
+# Path from the site root, e.g. "images/services/consecration.jpg" (about 1200px, under 300 KB).
+# Leave a service out to show its character panel instead.
+SERVICE_PHOTOS = {
+    # "consecration": "images/services/consecration.jpg",
+}
+
 
 def couplet(text, cls="couplet"):
     spans = "".join(f'<span aria-hidden="true">{c}</span>' for c in text)
@@ -209,13 +216,14 @@ def shell(lang, path, body, page, scripts=""):
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="robots" content="noindex, nofollow">
     <title>{title} | Craftsman Artifacts</title>
+    <link rel="icon" href="{root}images/logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="{root}style.css">
 </head>
 <body data-page="{page}">
 
     <header class="site-header">
         <nav>
-            <a href="{lang_home or './'}" class="logo">Craftsman Artifacts</a>
+            <a href="{lang_home or './'}" class="logo"><img class="logo-mark" src="{root}images/logo.svg" alt="" width="36" height="36"><span>Craftsman Artifacts</span></a>
             <div class="nav-links">
 {nav}
             </div>
@@ -244,6 +252,7 @@ def build(lang):
     t = T[lang]
     root = "../" if lang == "zh" else ""
     files = {}
+    up = "../" * (2 if lang == "zh" else 1)  # from an inner page to the site root
 
     # ---------- Home ----------
     rows = "\n".join(f'''                    <li><a href="services/#{sid}">
@@ -268,22 +277,24 @@ def build(lang):
         </section>
 
         <section class="section section-paper">
-            <div class="narrow">
+            <div class="wrap split">
                 <h2>{t["welcome_h"]}</h2>
+                <div>
 {welcome}
+                </div>
             </div>
         </section>
 
         <section class="section">
-            <div class="narrow">
-                <h2 class="section-intro">{t["what_we_do"]}</h2>
+            <div class="wrap split">
+                <h2>{t["what_we_do"]}</h2>
                 <ul class="service-list">
 {rows}
                 </ul>
             </div>
         </section>
 
-        <section class="section section-dark">
+        <section class="section section-paper section-pillars">
             <div class="wrap pillars">
 {pillars}
             </div>
@@ -303,10 +314,16 @@ def build(lang):
 
     # ---------- Services ----------
     jumps = "\n".join(f'                <a class="chip" href="#{sid}">{name}</a>' for sid, seal, name, *_ in t["services"])
-    blocks = "\n".join(f'''            <section class="service" id="{sid}" data-chat-topic="{wa}">
-                <span class="seal" aria-hidden="true">{seal}</span>
-                <div>
-                    <h2>{name}</h2>
+    def media(sid, seal, name):
+        photo = SERVICE_PHOTOS.get(sid)
+        if photo:
+            return f'<figure class="service-media"><img src="{up}{photo}" alt="{name}" loading="lazy"></figure>'
+        return f'<figure class="service-media panel" aria-hidden="true"><span>{seal}</span></figure>'
+
+    blocks = "\n".join(f'''            <section class="service{"" if sid in SERVICE_PHOTOS else " no-photo"}" id="{sid}" data-chat-topic="{wa}">
+                {media(sid, seal, name)}
+                <div class="service-text">
+                    <h2><span class="seal" aria-hidden="true">{seal}</span>{name}</h2>
                     <dl>
                         <dt>{t["dl"][0]}</dt><dd>{what}</dd>
                         <dt>{t["dl"][1]}</dt><dd>{who}</dd>
@@ -316,6 +333,7 @@ def build(lang):
             </section>''' for sid, seal, name, what, who, how, wa, short in t["services"])
     services = f'''        <section class="page-head">
             <div class="wrap">
+                {couplet(COUPLETS["services/"])}
                 <div>
                     <h1>{t["services_h1"]}</h1>
                     <p>{t["services_intro"]}</p>
@@ -372,6 +390,7 @@ def build(lang):
     coll_intro = "\n".join(f"                    <p>{p}</p>" for p in t["coll_intro"])
     products = f'''        <section class="page-head">
             <div class="wrap">
+                {couplet(COUPLETS["products/"])}
                 <div>
                     <h1>{t["coll_h1"]}</h1>
 {coll_intro}
@@ -387,6 +406,7 @@ def build(lang):
 {dialog}'''
     gallery = f'''        <section class="page-head">
             <div class="wrap">
+                {couplet(COUPLETS["gallery/"])}
                 <div>
                     <h1>{t["gal_h1"]}</h1>
                     <p>{t["gal_intro"]}</p>
@@ -428,10 +448,14 @@ def build(lang):
         </section>
 
         <section class="section section-paper">
-            <div class="narrow faq">
-                <h2>{t["faq_h"]}</h2>
-                <p>{t["faq_p"]}</p>
+            <div class="wrap split faq">
+                <div>
+                    <h2>{t["faq_h"]}</h2>
+                    <p>{t["faq_p"]}</p>
+                </div>
+                <div>
 {faq}
+                </div>
             </div>
         </section>
 '''
